@@ -6,13 +6,21 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { UploadForm } from "./UploadForm";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
+import { ArrowsLeftRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowsLeftRight";
+import { BuildingsIcon } from "@phosphor-icons/react/dist/ssr/Buildings";
 import { CalendarBlankIcon } from "@phosphor-icons/react/dist/ssr/CalendarBlank";
 import { CalendarCheckIcon } from "@phosphor-icons/react/dist/ssr/CalendarCheck";
 import { CalendarDotsIcon } from "@phosphor-icons/react/dist/ssr/CalendarDots";
+import { ChartLineDownIcon } from "@phosphor-icons/react/dist/ssr/ChartLineDown";
+import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
 import { DropIcon } from "@phosphor-icons/react/dist/ssr/Drop";
-import { FileTextIcon } from "@phosphor-icons/react/dist/ssr/FileText";
+import { FileArrowUpIcon } from "@phosphor-icons/react/dist/ssr/FileArrowUp";
 import { FlaskIcon } from "@phosphor-icons/react/dist/ssr/Flask";
-import { FolderOpenIcon } from "@phosphor-icons/react/dist/ssr/FolderOpen";
+import { HandshakeIcon } from "@phosphor-icons/react/dist/ssr/Handshake";
+import { ReceiptIcon } from "@phosphor-icons/react/dist/ssr/Receipt";
+import { StackIcon } from "@phosphor-icons/react/dist/ssr/Stack";
+import { StorefrontIcon } from "@phosphor-icons/react/dist/ssr/Storefront";
 import { TeaBagIcon } from "@phosphor-icons/react/dist/ssr/TeaBag";
 
 const plans = [
@@ -20,7 +28,7 @@ const plans = [
     name: "Кофе",
     price: "7 000 ₽",
     limit: "до 70 000 ₽ закупок в месяц",
-    text: "Регулярные закупки зерна по подписочной цене в рамках установленного лимита.",
+    text: "Подбираем предложения обжарщиков под ваш объём и рабочий профиль зерна.",
   },
   {
     name: "Сиропы",
@@ -32,13 +40,13 @@ const plans = [
     name: "Чай",
     price: "4 000 ₽",
     limit: "до 20 000 ₽ закупок в месяц",
-    text: "Согласованный ассортимент под фактический расход заведения.",
+    text: "Согласованный ассортимент и ритм заказа под фактический расход.",
   },
   {
     name: "Всё вместе",
     price: "14 990 ₽",
     limit: "до 250 000 ₽ закупок в месяц",
-    text: "Единая подписка на три категории и максимальный лимит для заведения.",
+    text: "Одна точка входа для трёх категорий и максимальный лимит для заведения.",
     featured: true,
   },
 ];
@@ -50,15 +58,15 @@ const syrupRows = [
 ];
 
 const delivery = [
-  { category: "Кофе", title: "Каждый понедельник", text: "Предзаказ по понедельникам, отгрузка — в течение недели.", icon: CalendarCheckIcon },
-  { category: "Сиропы", title: "2 раза в месяц", text: "Заказ включается в ближайшую плановую поставку Herbarista в Казань.", icon: CalendarDotsIcon },
-  { category: "Чай", title: "По согласованному графику", text: "Периодичность фиксируем под расход и доступный склад заведения.", icon: CalendarBlankIcon },
+  { category: "Кофе", title: "Каждый понедельник", text: "Собираем предзаказ по понедельникам. Поставщик отгружает его в течение недели.", icon: CalendarCheckIcon },
+  { category: "Сиропы", title: "2 раза в месяц", text: "Объединяем заявки и включаем заказ в ближайшую плановую поставку Herbarista в Казань.", icon: CalendarDotsIcon },
+  { category: "Чай", title: "По согласованному графику", text: "Фиксируем периодичность вместе с вами и поставщиком под реальный расход.", icon: CalendarBlankIcon },
 ];
 
 const processSteps = [
-  { title: "Выберите категории", text: "Подключите кофе, чай, сиропы или комплекс из трёх направлений.", icon: FolderOpenIcon },
-  { title: "Зафиксируйте условия", text: "Оплатите подписку с 1 по 5 число и получите доступ к специальным ценам.", icon: FileTextIcon },
-  { title: "Получайте поставки", text: "Передавайте заявку по графику и закупайте только необходимый объём.", icon: CalendarCheckIcon },
+  { title: "Передайте структуру закупки", text: "Категории, позиции, текущие цены и примерный месячный объём.", icon: FileArrowUpIcon },
+  { title: "Мы согласуем условия", text: "Собираем спрос, сопоставляем прайсы поставщиков и фиксируем подписочную цену.", icon: HandshakeIcon },
+  { title: "Заказывайте нужный объём", text: "Передавайте заявку по графику. Товар оплачивается отдельно — по фактическому заказу.", icon: CalendarCheckIcon },
 ];
 
 function Brand({ light = false }: { light?: boolean }) {
@@ -70,51 +78,80 @@ function Brand({ light = false }: { light?: boolean }) {
   );
 }
 
-function ProcessAccordion() {
+function ActionLink({ href, children, secondary = false }: { href: string; children: React.ReactNode; secondary?: boolean }) {
   return (
-    <div className="process-accordion">
-      {processSteps.map((step, index) => {
-        const Icon = step.icon;
-        return (
-          <details key={step.title} open={index === 0}>
-            <summary>
-              <span className="process-number">0{index + 1}</span>
-              <Icon size={28} weight="regular" aria-hidden="true" />
-              <strong>{step.title}</strong>
-              <span className="process-plus" aria-hidden="true" />
-            </summary>
-            <p>{step.text}</p>
-          </details>
-        );
-      })}
+    <a className={`button ${secondary ? "button-ghost" : "button-primary"}`} href={href}>
+      <span>{children}</span>
+      <span className="button-icon" aria-hidden="true"><ArrowUpRightIcon size={17} weight="regular" /></span>
+    </a>
+  );
+}
+
+function ProcurementMap() {
+  return (
+    <div className="bezel procurement-shell reveal-item" aria-label="Coffee Nostra связывает поставщиков и заведение">
+      <div className="procurement-core">
+        <div className="procurement-head">
+          <span>Контур закупки</span>
+          <span className="status-dot">одна точка входа</span>
+        </div>
+        <div className="procurement-map">
+          <div className="procurement-side supplier-side">
+            <BuildingsIcon size={26} weight="light" aria-hidden="true" />
+            <div><small>Сторона 01</small><strong>Поставщики</strong></div>
+            <ul><li>обжарщики</li><li>чайные компании</li><li>Herbarista</li></ul>
+          </div>
+          <div className="flow-connector" aria-hidden="true"><i className="flow-stroke" /><ArrowsLeftRightIcon size={22} weight="light" /></div>
+          <div className="nostra-node">
+            <span className="node-index">CN</span>
+            <HandshakeIcon size={34} weight="light" aria-hidden="true" />
+            <strong>Coffee Nostra</strong>
+            <p>собираем спрос<br />согласуем цену<br />планируем ритм</p>
+          </div>
+          <div className="flow-connector" aria-hidden="true"><i className="flow-stroke" /><ArrowRightIcon size={22} weight="light" /></div>
+          <div className="procurement-side buyer-side">
+            <StorefrontIcon size={26} weight="light" aria-hidden="true" />
+            <div><small>Сторона 02</small><strong>Заведение</strong></div>
+            <ul><li>нужный объём</li><li>единая заявка</li><li>плановая поставка</li></ul>
+          </div>
+        </div>
+        <div className="procurement-metrics">
+          <span><strong>3</strong> категории</span>
+          <span><strong>1–2</strong> тестовых заказа</span>
+          <span><strong>0</strong> обязательных коробок</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 function EconomyGraph() {
   return (
-    <section className="economy-band" aria-labelledby="economy-title">
-      <div className="economy-copy">
-        <h2 id="economy-title">Цена ниже — без роста запаса</h2>
-        <p>Обычный прайс снижается только вместе с объёмом. Подписочная цена доступна с необходимого вам заказа.</p>
+    <section className="economy-band reveal-section" aria-labelledby="economy-title">
+      <div className="economy-copy reveal-item">
+        <span className="section-kicker"><ChartLineDownIcon size={14} weight="light" /> Экономика закупки</span>
+        <h2 id="economy-title">Цена снижается.<br />Запас не растёт.</h2>
+        <p>При обычной модели скидка появляется только вместе с объёмом. Мы объединяем спрос нескольких заведений и передаём вам специальные условия на нужный заказ.</p>
       </div>
-      <div className="economy-chart" aria-label="Сравнение обычной и подписочной цены">
-        <div className="economy-legend"><span><i />Обычный прайс</span><span><i />По подписке</span></div>
-        <div className="economy-plot">
-          <span className="economy-axis economy-axis-top">718 ₽</span>
-          <span className="economy-axis economy-axis-bottom">522 ₽</span>
-          <i className="economy-grid economy-grid-top" />
-          <i className="economy-grid economy-grid-bottom" />
-          <i className="economy-market economy-market-a" />
-          <i className="economy-market economy-market-b" />
-          <i className="economy-subscription" />
-          <b className="economy-point economy-point-start" />
-          <b className="economy-point economy-point-end" />
-          <span className="economy-value economy-value-start">718 ₽</span>
-          <span className="economy-value economy-value-end">656 ₽</span>
-          <span className="economy-x economy-x-one">1</span>
-          <span className="economy-x economy-x-fifty">50</span>
-          <span className="economy-x economy-x-bulk">150+</span>
+      <div className="bezel graph-shell reveal-item">
+        <div className="economy-chart" aria-label="Сравнение обычной и подписочной цены">
+          <div className="economy-legend"><span><i />Обычный прайс</span><span><i />По подписке</span></div>
+          <div className="economy-plot">
+            <span className="economy-axis economy-axis-top">718 ₽</span>
+            <span className="economy-axis economy-axis-bottom">522 ₽</span>
+            <i className="economy-grid economy-grid-top" />
+            <i className="economy-grid economy-grid-bottom" />
+            <i className="economy-market economy-market-a" />
+            <i className="economy-market economy-market-b" />
+            <i className="economy-subscription" />
+            <b className="economy-point economy-point-start" />
+            <b className="economy-point economy-point-end" />
+            <span className="economy-value economy-value-start">718 ₽</span>
+            <span className="economy-value economy-value-end">656 ₽</span>
+            <span className="economy-x economy-x-one">1</span>
+            <span className="economy-x economy-x-fifty">50</span>
+            <span className="economy-x economy-x-bulk">150+</span>
+          </div>
         </div>
       </div>
     </section>
@@ -125,56 +162,62 @@ function PriceStory() {
   return (
     <section className="price-story" id="prices">
       <div className="price-pin">
-        <h2>
-          Не нужно покупать <span className="inline-type-image motion-image" aria-hidden="true" /> 150 бутылок ради оптовой цены
-        </h2>
-        <p>Закупайте только необходимый объём на неделю или месяц по цене крупного опта.</p>
-        <a className="text-link" href="#request">Прислать закупочный лист <ArrowRightIcon size={20} /></a>
+        <span className="section-kicker">Herbarista · пример расчёта</span>
+        <h2>Не нужно покупать <span className="price-quantity">150</span> бутылок ради оптовой цены</h2>
+        <p>Закупайте только необходимый объём на неделю или месяц. Экономию считаем от обычной цены за одну бутылку.</p>
+        <a className="text-link" href="#request">Прислать закупочный лист <span><ArrowUpRightIcon size={17} /></span></a>
       </div>
-      <div className="price-rail" role="table" aria-label="Сравнительный прайс Herbarista">
-        <div className="price-rail-head" role="row">
-          <span role="columnheader">Продукт / вкус</span>
-          <span role="columnheader">Обычная цена<br />от 1 шт.</span>
-          <span role="columnheader">Крупный опт<br />от 150 шт.</span>
-          <span className="price-accent-head" role="columnheader">По подписке</span>
-        </div>
-        {syrupRows.map((row) => (
-          <div className="price-rail-row" role="row" key={row.product}>
-            <div className="price-name" role="cell"><strong>{row.product}</strong><small>{row.series}</small></div>
-            <span role="cell">{row.one}</span>
-            <span role="cell">{row.bulk}</span>
-            <div className="price-accent" role="cell"><strong>{row.subscription}</strong><small>{row.benefit}</small></div>
+      <div className="bezel price-shell reveal-item">
+        <div className="price-rail" role="table" aria-label="Сравнительный прайс Herbarista">
+          <div className="price-rail-head" role="row">
+            <span role="columnheader">Продукт / вкус</span>
+            <span role="columnheader">Обычная цена<br />от 1 шт.</span>
+            <span role="columnheader">Крупный опт<br />от 150 шт.</span>
+            <span className="price-accent-head" role="columnheader">По подписке</span>
           </div>
-        ))}
-        <p className="price-note">Спеццена по подписке распространяется на весь каталог Herbarista.</p>
+          {syrupRows.map((row) => (
+            <div className="price-rail-row" role="row" key={row.product}>
+              <div className="price-name" role="cell"><strong>{row.product}</strong><small>{row.series}</small></div>
+              <span role="cell">{row.one}</span>
+              <span role="cell">{row.bulk}</span>
+              <div className="price-accent" role="cell"><strong>{row.subscription}</strong><small>{row.benefit}</small></div>
+            </div>
+          ))}
+          <p className="price-note">Спеццена по подписке распространяется на весь каталог Herbarista.</p>
+        </div>
       </div>
     </section>
   );
 }
 
-function BarAccordion() {
-  const categories = [
-    { name: "Сиропы Herbarista", text: "От 522 ₽ по подписке", icon: DropIcon, position: "top" },
-    { name: "Чай", text: "Поставка по согласованному графику", icon: TeaBagIcon, position: "center" },
-    { name: "Кордиалы", text: "Основа для авторских напитков", icon: FlaskIcon, position: "bottom" },
-  ];
-
+function BarSystem() {
   return (
-    <div className="bar-accordion">
-      {categories.map((item) => {
-        const Icon = item.icon;
-        return (
-          <article key={item.name} tabIndex={0}>
-            <div className={`bar-photo bar-photo-${item.position} motion-image`} aria-hidden="true" />
-            <div className="bar-overlay" />
-            <div className="bar-card-copy">
-              <Icon size={34} weight="regular" aria-hidden="true" />
-              <div><h3>{item.name}</h3><p>{item.text}</p></div>
-              <ArrowRightIcon className="bar-arrow" size={24} aria-hidden="true" />
-            </div>
-          </article>
-        );
-      })}
+    <div className="bar-system">
+      <article className="bezel bar-card bar-card-main reveal-item">
+        <div className="bar-card-core">
+          <DropIcon size={30} weight="light" aria-hidden="true" />
+          <span className="bar-code">01 / сиропы</span>
+          <h3>Herbarista</h3>
+          <p>Доступ к подписочной цене по всему каталогу без закупки 150 бутылок одного заказа.</p>
+          <div className="bar-price-route"><span>718 ₽</span><i /><strong>522 ₽</strong></div>
+        </div>
+      </article>
+      <article className="bezel bar-card reveal-item">
+        <div className="bar-card-core">
+          <TeaBagIcon size={28} weight="light" aria-hidden="true" />
+          <span className="bar-code">02 / чай</span>
+          <h3>Под ваш расход</h3>
+          <p>Ассортимент и периодичность согласуем с поставщиком под барную карту.</p>
+        </div>
+      </article>
+      <article className="bezel bar-card reveal-item">
+        <div className="bar-card-core">
+          <FlaskIcon size={28} weight="light" aria-hidden="true" />
+          <span className="bar-code">03 / кордиалы</span>
+          <h3>В одном расчёте</h3>
+          <p>Добавим позиции в закупочный аудит и покажем итоговую экономику меню.</p>
+        </div>
+      </article>
     </div>
   );
 }
@@ -187,33 +230,41 @@ export function LandingPage() {
     const media = gsap.matchMedia();
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(".hero-line", { yPercent: 115, opacity: 0, duration: 0.9, stagger: 0.1, ease: "power3.out" });
-      gsap.from(".hero-stage > *", { y: 48, opacity: 0, duration: 0.9, stagger: 0.12, delay: 0.35, ease: "power3.out" });
-      gsap.utils.toArray<HTMLElement>(".motion-image").forEach((image) => {
-        gsap.fromTo(image, { scale: 0.88, opacity: 0.55 }, {
-          scale: 1,
-          opacity: 1,
-          ease: "none",
-          scrollTrigger: { trigger: image, start: "top 92%", end: "bottom 35%", scrub: true },
+      gsap.from(".hero-line", { yPercent: 115, opacity: 0, duration: 1, stagger: 0.1, ease: "power4.out" });
+      gsap.from(".hero-copy > *, .procurement-shell", { y: 44, opacity: 0, duration: 1, stagger: 0.1, delay: 0.35, ease: "power3.out" });
+      gsap.from(".procurement-map > *", { y: 20, opacity: 0, duration: 0.75, stagger: 0.08, delay: 0.7, ease: "power3.out" });
+      gsap.from(".flow-stroke", { scaleX: 0, duration: 0.9, stagger: 0.12, delay: 1, ease: "power3.inOut" });
+
+      gsap.utils.toArray<HTMLElement>(".reveal-section").forEach((section) => {
+        const items = section.querySelectorAll(".reveal-item");
+        if (!items.length) return;
+        gsap.from(items, {
+          y: 54,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 82%", once: true },
         });
       });
+
       gsap.to(".reveal-word", {
         opacity: 1,
         stagger: 0.08,
         ease: "none",
-        scrollTrigger: { trigger: ".reveal-copy", start: "top 85%", end: "bottom 45%", scrub: true },
+        scrollTrigger: { trigger: ".reveal-copy", start: "top 86%", end: "bottom 46%", scrub: true },
       });
       gsap.fromTo(".economy-subscription", { scaleX: 0 }, {
         scaleX: 1,
         ease: "none",
-        scrollTrigger: { trigger: ".economy-chart", start: "top 80%", end: "bottom 60%", scrub: true },
+        scrollTrigger: { trigger: ".economy-chart", start: "top 82%", end: "bottom 58%", scrub: true },
       });
     });
 
     media.add("(min-width: 980px) and (prefers-reduced-motion: no-preference)", () => {
       ScrollTrigger.create({
         trigger: ".price-story",
-        start: "top top+=92",
+        start: "top top+=112",
         end: "bottom bottom-=80",
         pin: ".price-pin",
         pinSpacing: false,
@@ -223,10 +274,11 @@ export function LandingPage() {
     return () => media.revert();
   }, { scope: rootRef });
 
-  const revealText = "Начните с 1–2 заказов без подписки, оцените продукт и сервис, затем подключите тариф с 1 по 5 число следующего месяца.";
+  const revealText = "Начните с 1–2 заказов без подписки, проверьте сервис и поставку, затем подключите тариф с 1 по 5 число следующего месяца.";
 
   return (
     <main id="top" ref={rootRef}>
+      <a className="skip-link" href="#content">К содержанию</a>
       <header className="site-header">
         <a href="#top" aria-label="Coffee Nostra — начало страницы"><Brand /></a>
         <nav aria-label="Разделы страницы">
@@ -235,124 +287,144 @@ export function LandingPage() {
           <a href="#prices">Прайс</a>
           <a href="#delivery">Поставки</a>
         </nav>
-        <a className="header-cta" href="#request">Прислать закупочный лист</a>
+        <a className="header-cta" href="#request">Прислать закупочный лист <span aria-hidden="true"><ArrowUpRightIcon size={15} /></span></a>
       </header>
 
-      <section className="hero">
-        <h1 className="max-w-editorial" aria-label="Закупайте напитки по ценам крупного опта, а не большими коробками.">
-          <span className="hero-line">Закупайте напитки</span>
-          <span className="hero-line">по ценам крупного опта,</span>
-          <span className="hero-line">а не большими коробками.</span>
-        </h1>
-        <div className="hero-stage">
-          <div className="hero-copy">
-            <p>Обычно лучшая цена требует большого объёма. Мы отвязали цену от объёма склада, заморозки денег и дефицита товаров.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#request">Прислать закупочный лист</a>
-              <a className="button button-ghost" href="#prices">Посмотреть сравнение цен <ArrowRightIcon size={18} /></a>
+      <div id="content">
+        <section className="hero reveal-section">
+          <span className="section-kicker hero-kicker"><ArrowsLeftRightIcon size={14} weight="light" /> Закупочная инфраструктура · Казань</span>
+          <h1 aria-label="Закупайте напитки по ценам крупного опта, а не большими коробками.">
+            <span className="hero-line">Закупайте напитки</span>
+            <span className="hero-line">по ценам крупного опта,</span>
+            <span className="hero-line">а не большими коробками.</span>
+          </h1>
+          <div className="hero-stage">
+            <div className="hero-copy">
+              <p>Coffee Nostra объединяет закупки заведений, согласует условия с поставщиками и передаёт вам специальную цену на необходимый объём.</p>
+              <div className="hero-actions">
+                <ActionLink href="#request">Прислать закупочный лист</ActionLink>
+                <ActionLink href="#prices" secondary>Посмотреть сравнение цен</ActionLink>
+              </div>
+              <p className="role-note"><CheckCircleIcon size={17} weight="light" /> Мы не производим товар — мы организуем выгодную и предсказуемую закупку.</p>
+            </div>
+            <ProcurementMap />
+          </div>
+        </section>
+
+        <div className="category-marquee" aria-hidden="true">
+          <div className="marquee-track">
+            <span>ОБЪЕДИНЯЕМ СПРОС — СОГЛАСУЕМ ЦЕНУ — ПЛАНИРУЕМ ПОСТАВКУ — </span>
+            <span>ОБЪЕДИНЯЕМ СПРОС — СОГЛАСУЕМ ЦЕНУ — ПЛАНИРУЕМ ПОСТАВКУ — </span>
+          </div>
+        </div>
+
+        <EconomyGraph />
+
+        <section className="chapter process reveal-section" id="process">
+          <div className="chapter-head">
+            <div><span className="section-kicker">Как работает подписка</span><h2>Одна заявка.<br />Три понятных этапа.</h2></div>
+            <p>Подписка оплачивает доступ к специальным условиям. Товар вы оплачиваете отдельно — только по фактическому заказу.</p>
+          </div>
+          <div className="bezel process-shell reveal-item">
+            <div className="process-list">
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <article key={step.title}>
+                    <span className="process-number">0{index + 1}</span>
+                    <span className="process-icon"><Icon size={27} weight="light" aria-hidden="true" /></span>
+                    <div><h3>{step.title}</h3><p>{step.text}</p></div>
+                    <ArrowRightIcon size={21} weight="light" aria-hidden="true" />
+                  </article>
+                );
+              })}
             </div>
           </div>
-          <figure className="hero-media motion-image">
-            <img src="/images/horeca-still-life.png" alt="Профессиональные сиропы, чай и барный инвентарь на стойке" />
-            <figcaption>Кофе · чай · сиропы · Казань</figcaption>
-          </figure>
-        </div>
-      </section>
+        </section>
 
-      <div className="category-marquee" aria-hidden="true">
-        <div className="marquee-track">
-          <span>КОФЕ — ЧАЙ — СИРОПЫ — КОРДИАЛЫ — </span>
-          <span>КОФЕ — ЧАЙ — СИРОПЫ — КОРДИАЛЫ — </span>
-        </div>
+        <section className="chapter plans reveal-section" id="plans">
+          <div className="chapter-head">
+            <div><span className="section-kicker">Тарифы</span><h2>Условия под структуру закупки</h2></div>
+            <p>Лимит — максимальная сумма закупок по спеццене в месяц, а не обязательный объём заказа.</p>
+          </div>
+          <div className="bezel plan-shell reveal-item">
+            <div className="plan-bento">
+              {plans.map((plan) => (
+                <article className={`plan-card${plan.featured ? " plan-featured" : ""}`} key={plan.name}>
+                  <div className="plan-head"><ReceiptIcon size={24} weight="light" aria-hidden="true" /><h3>{plan.name}</h3></div>
+                  <div className="plan-price">{plan.price}<small>/ мес</small></div>
+                  <strong className="plan-limit">{plan.limit}</strong>
+                  <span className="plan-payment">+ оплата товара по факту заказа</span>
+                  <span className="plan-saving">экономия — после расчёта по вашему прайсу</span>
+                  <p>{plan.text}</p>
+                  <a href="#request">Рассчитать тариф <span><ArrowUpRightIcon size={16} /></span></a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <PriceStory />
+
+        <section className="trial chapter reveal-section">
+          <p className="reveal-copy">
+            {revealText.split(" ").map((word, index) => <span className="reveal-word" key={`${word}-${index}`}>{word} </span>)}
+          </p>
+          <div className="trial-terms">
+            <article className="bezel reveal-item"><div><span>01 / тест</span><h3>1–2 заказа без подписки</h3><p>Оплачиваете товар и доставку по обычным условиям и проверяете процесс в работе.</p></div></article>
+            <article className="bezel reveal-item"><div><span>02 / подключение</span><h3>Оплата с 1 по 5 число</h3><p>Если формат подходит, подключаем выбранный тариф со следующего месяца.</p></div></article>
+          </div>
+        </section>
+
+        <section className="chapter delivery reveal-section" id="delivery">
+          <div className="chapter-head">
+            <div><span className="section-kicker">Логистика по Казани</span><h2>Гарантированный ритм поставок</h2></div>
+            <p>Мы координируем заявки и поставщиков, чтобы поддерживать наличие без избыточного склада.</p>
+          </div>
+          <div className="bezel delivery-shell reveal-item">
+            <div className="delivery-line">
+              {delivery.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <article key={item.category}>
+                    <Icon size={38} weight="light" aria-hidden="true" />
+                    <span>{item.category}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="chapter hookah reveal-section">
+          <div className="hookah-intro">
+            <div><span className="section-kicker">Для кальянных баров</span><h2>Закупка ингредиентов как одна система</h2></div>
+            <div><p>Сиропы, чай и кордиалы — в одном расчёте. Сравним текущую стоимость и предложим структуру закупки без избыточного объёма.</p><ActionLink href="#request" secondary>Рассчитать тариф</ActionLink></div>
+          </div>
+          <BarSystem />
+        </section>
+
+        <section className="request" id="request">
+          <div className="request-copy">
+            <span className="section-kicker section-kicker-light"><StackIcon size={14} weight="light" /> Закупочный аудит</span>
+            <h2>Покажем разницу в цифрах</h2>
+            <p>Пришлите текущий закупочный лист. B2B‑менеджер сопоставит ваши цены с условиями поставщиков и подписки.</p>
+            <ul>
+              <li>Текущая стоимость закупки</li>
+              <li>Стоимость товара по подписке</li>
+              <li>Чистая экономия за месяц</li>
+            </ul>
+          </div>
+          <div className="bezel form-shell"><div className="form-shell-core"><UploadForm /></div></div>
+        </section>
       </div>
 
-      <EconomyGraph />
-
-      <section className="chapter process" id="process">
-        <div className="chapter-head">
-          <h2>Прозрачные этапы регулярных поставок</h2>
-          <p>Цена подписки фиксируется на месяц. Товар оплачивается отдельно — только по фактическому заказу.</p>
-        </div>
-        <ProcessAccordion />
-      </section>
-
-      <section className="chapter plans" id="plans">
-        <div className="chapter-head">
-          <h2>Условия под структуру закупки</h2>
-          <p>Лимит — максимальная сумма закупок по спеццене в месяц, а не обязательный объём заказа.</p>
-        </div>
-        <div className="plan-bento">
-          {plans.map((plan) => (
-            <article className={`plan-card${plan.featured ? " plan-featured" : ""}`} key={plan.name}>
-              <h3>{plan.name}</h3>
-              <div className="plan-price">{plan.price}<small>/ мес</small></div>
-              <strong className="plan-limit">{plan.limit}</strong>
-              <span className="plan-payment">+ оплата товара по факту заказа</span>
-              <span className="plan-saving">экономия — после расчёта по вашему прайсу</span>
-              <p>{plan.text}</p>
-              <a href="#request">Рассчитать тариф <ArrowRightIcon size={19} /></a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <PriceStory />
-
-      <section className="trial chapter">
-        <p className="reveal-copy">
-          {revealText.split(" ").map((word, index) => <span className="reveal-word" key={`${word}-${index}`}>{word} </span>)}
-        </p>
-        <div className="trial-terms">
-          <article><h3>Тестовый вход</h3><strong>1–2 заказа без подписки</strong><p>Вы оплачиваете товар и доставку по обычным условиям и оцениваете продукт в работе.</p></article>
-          <article><h3>Подключение</h3><strong>Оплата с 1 по 5 число</strong><p>Если вас всё устроило, подключаем тариф со следующего месяца.</p></article>
-        </div>
-      </section>
-
-      <section className="chapter delivery" id="delivery">
-        <div className="chapter-head">
-          <h2>Гарантированный ритм поставок</h2>
-          <p>Планируем заказы заранее, чтобы поддерживать наличие без избыточного склада.</p>
-        </div>
-        <div className="delivery-line">
-          {delivery.map((item) => {
-            const Icon = item.icon;
-            return (
-              <article key={item.category}>
-                <Icon size={42} weight="regular" aria-hidden="true" />
-                <span>{item.category}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="chapter hookah">
-        <div className="hookah-intro">
-          <h2>Оптимизация барного меню кальянных баров</h2>
-          <div><p>Соберите меню с высокой маржинальностью на основе сиропов, чая и кордиалов. Закупайте профессиональные ингредиенты без избыточного объёма.</p><a className="button button-ghost" href="#request">Рассчитать тариф <ArrowRightIcon size={18} /></a></div>
-        </div>
-        <BarAccordion />
-      </section>
-
-      <section className="request" id="request">
-        <div className="request-copy">
-          <h2>Оптимизируйте ваши закупки прямо сейчас</h2>
-          <p>Пришлите ваш текущий закупочный лист. Наш B2B-менеджер рассчитает оптимизацию и покажет разницу в цифрах.</p>
-          <ul>
-            <li>Текущая стоимость закупки</li>
-            <li>Стоимость по подписке</li>
-            <li>Чистая экономия за месяц</li>
-          </ul>
-        </div>
-        <UploadForm />
-      </section>
-
       <footer>
-        <div><Brand light /><p>B2B-подписка на кофе, чай и сиропы для заведений Казани.</p></div>
+        <div><Brand light /><p>Связываем заведения Казани с поставщиками кофе, чая и сиропов на специальных условиях.</p></div>
         <div className="footer-links"><a href="#process">Как работает</a><a href="#plans">Тарифы</a><a href="#prices">Прайс Herbarista</a><a href="#delivery">Поставки</a></div>
-        <a className="footer-top" href="#top">Наверх <ArrowRightIcon size={17} /></a>
+        <a className="footer-top" href="#top">Наверх <span><ArrowUpRightIcon size={15} /></span></a>
       </footer>
     </main>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 
 export function UploadForm() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -81,7 +82,10 @@ export function UploadForm() {
           aria-label="Телефон или Telegram для ответа"
         />
       </label>
-      <button className="button button-dark" type="submit">Прислать закупочный лист</button>
+      <button className="button button-dark" type="submit">
+        <span>Прислать закупочный лист</span>
+        <span className="button-icon" aria-hidden="true"><ArrowUpRightIcon size={17} weight="regular" /></span>
+      </button>
       <p className="form-note" aria-live="polite">
         {message || "На iPad и телефоне откроется системное меню отправки файла."}
       </p>
