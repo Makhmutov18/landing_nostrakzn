@@ -208,17 +208,7 @@ h1 {
 .process-grid h3 { margin-bottom: 14px; font-size: 23px; letter-spacing: -.025em; }
 .process-grid p { max-width: 365px; margin-bottom: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
 
-.process-icon { width: 60px; height: 60px; border: 1px solid var(--ink); position: relative; display: block; }
-.process-icon i, .process-icon b, .process-icon em { display: block; position: absolute; font-style: normal; }
-.process-icon-catalog i { left: 13px; top: 16px; width: 34px; height: 27px; border: 1px solid var(--ink); }
-.process-icon-catalog b { left: 18px; top: 11px; width: 13px; height: 6px; border: 1px solid var(--ink); border-bottom: 0; }
-.process-icon-catalog em { left: 19px; top: 25px; width: 22px; height: 1px; background: var(--accent); box-shadow: 0 7px 0 var(--accent); }
-.process-icon-agreement i { left: 17px; top: 10px; width: 27px; height: 38px; border: 1px solid var(--ink); }
-.process-icon-agreement b { left: 23px; top: 21px; width: 14px; height: 1px; background: var(--ink); box-shadow: 0 7px 0 var(--ink), 0 14px 0 var(--ink); }
-.process-icon-agreement em { right: 10px; bottom: 8px; width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 3px solid var(--surface); }
-.process-icon-calendar i { left: 12px; top: 14px; width: 36px; height: 33px; border: 1px solid var(--ink); }
-.process-icon-calendar b { left: 12px; top: 23px; width: 36px; height: 1px; background: var(--ink); }
-.process-icon-calendar em { left: 21px; top: 32px; width: 5px; height: 5px; background: var(--accent); box-shadow: 12px 0 0 #d7d3c8; }
+.process-icon { width: 60px; height: 60px; border: 1px solid var(--ink); display: grid; place-items: center; color: var(--accent); }
 
 .plans { padding-top: 105px; }
 .plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -244,10 +234,16 @@ h1 {
 .price-row > *:last-child { border-right: 0; }
 .price-row strong { font-size: 16px; }
 .price-row span { color: #514f49; font-size: 15px; }
-.price-row b { background: var(--accent-soft); color: var(--accent-dark); font-size: 23px; }
+.price-product, .price-subscription { flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; }
+.price-product small { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; }
+.price-subscription { background: var(--accent-soft); }
+.price-subscription b { color: var(--accent-dark); font-size: 23px; }
+.price-subscription small { color: var(--accent-dark); font-size: 10px; font-weight: 700; }
 .price-row-head { min-height: 50px; background: #efede7; }
 .price-row-head span { font-size: 10px; text-transform: uppercase; letter-spacing: .075em; color: var(--muted); font-weight: 720; }
-.price-row-head span:last-child { background: var(--accent); color: white; }
+.price-row-head .subscription-head { background: var(--accent); color: white; flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+.subscription-head b { font-size: 10px; }
+.subscription-head small { padding: 5px 7px; background: white; color: var(--accent-dark); font-size: 8px; letter-spacing: .06em; white-space: nowrap; }
 .price-foot { display: flex; align-items: center; justify-content: space-between; padding: 24px 0 0; }
 .price-foot p { margin: 0; font-size: 13px; color: var(--muted); }
 .price-foot p strong { color: var(--ink); }
@@ -266,14 +262,7 @@ h1 {
 .delivery-grid article { min-height: 395px; border: 1px solid var(--line-dark); background: var(--surface); padding: 26px; }
 .delivery-meta { display: flex; align-items: center; justify-content: space-between; font-size: 10px; color: var(--muted); }
 .delivery-meta b { color: var(--ink); text-transform: uppercase; letter-spacing: .08em; }
-.schedule-icon { width: 84px; height: 84px; margin: 54px 0 42px; display: block; border: 1px solid var(--ink); position: relative; }
-.schedule-icon i, .schedule-icon b, .schedule-icon em, .schedule-icon small { display: block; position: absolute; font-style: normal; }
-.schedule-icon-week i, .schedule-icon-month i, .schedule-icon-calendar i { left: 17px; top: 19px; width: 48px; height: 45px; border: 1px solid var(--ink); }
-.schedule-icon-week b, .schedule-icon-month b, .schedule-icon-calendar b { left: 17px; top: 31px; width: 48px; height: 1px; background: var(--ink); }
-.schedule-icon-week em { left: 26px; top: 41px; width: 7px; height: 7px; background: #d8d4ca; box-shadow: 12px 0 0 #d8d4ca, 24px 0 0 #d8d4ca, 0 12px 0 var(--accent), 12px 12px 0 #d8d4ca, 24px 12px 0 #d8d4ca; }
-.schedule-icon-month em { left: 26px; top: 41px; width: 8px; height: 8px; background: var(--accent); box-shadow: 24px 12px 0 var(--accent); }
-.schedule-icon-month small { left: 38px; top: 41px; width: 8px; height: 8px; background: #d8d4ca; box-shadow: 12px 0 0 #d8d4ca, 0 12px 0 #d8d4ca; }
-.schedule-icon-calendar em { left: 27px; top: 42px; width: 26px; height: 14px; border-left: 3px solid var(--accent); border-bottom: 3px solid var(--accent); transform: rotate(-45deg); }
+.schedule-icon { width: 84px; height: 84px; margin: 54px 0 42px; display: grid; place-items: center; border: 1px solid var(--ink); color: var(--accent); }
 .delivery-grid h3 { margin-bottom: 12px; font-size: 23px; letter-spacing: -.025em; }
 .delivery-grid > article > strong { display: block; margin-bottom: 14px; color: var(--accent); font-size: 12px; }
 .delivery-grid p { max-width: 350px; margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
@@ -298,7 +287,8 @@ h1 {
 .section-label-light { color: white; opacity: .78; }
 .request-copy > p { max-width: 680px; margin: 28px 0 33px; color: rgba(255,255,255,.82); font-size: 18px; line-height: 1.6; }
 .request-copy ul { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255,255,255,.38); }
-.request-copy li { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.38); font-size: 13px; }
+.request-copy li { padding: 13px 0 13px 28px; border-bottom: 1px solid rgba(255,255,255,.38); font-size: 13px; position: relative; }
+.request-copy li::before { content: ""; position: absolute; left: 3px; top: 16px; width: 10px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg); }
 
 .upload-card { background: var(--surface); color: var(--ink); padding: 28px; }
 .upload-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }

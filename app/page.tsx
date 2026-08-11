@@ -1,4 +1,9 @@
 import { UploadForm } from "./UploadForm";
+import { CalendarBlankIcon } from "@phosphor-icons/react/dist/ssr/CalendarBlank";
+import { CalendarCheckIcon } from "@phosphor-icons/react/dist/ssr/CalendarCheck";
+import { CalendarDotsIcon } from "@phosphor-icons/react/dist/ssr/CalendarDots";
+import { FileTextIcon } from "@phosphor-icons/react/dist/ssr/FileText";
+import { FolderOpenIcon } from "@phosphor-icons/react/dist/ssr/FolderOpen";
 
 const plans = [
   {
@@ -26,16 +31,16 @@ const plans = [
     index: "04",
     name: "Всё вместе",
     price: "14 990 ₽",
-    limit: "кофе + чай + сиропы",
-    text: "Единые условия на три категории и экономия 1 010 ₽ на стоимости подписок.",
+    limit: "до 250 000 ₽ закупок в месяц",
+    text: "Единая подписка на три категории и максимальный лимит для заведения.",
     featured: true,
   },
 ];
 
 const syrupRows = [
-  { group: "Группа 1", one: "718 ₽", bulk: "656 ₽", subscription: "522 ₽" },
-  { group: "Группа 2", one: "783 ₽", bulk: "721 ₽", subscription: "588 ₽" },
-  { group: "Группа 3", one: "836 ₽", bulk: "774 ₽", subscription: "639 ₽" },
+  { product: "Ананас", series: "Фруктовая серия", one: "718 ₽", bulk: "656 ₽", subscription: "522 ₽", benefit: "выгода 134 ₽/бут" },
+  { product: "Бабл-гам", series: "Десертная серия", one: "783 ₽", bulk: "721 ₽", subscription: "588 ₽", benefit: "выгода 133 ₽/бут" },
+  { product: "Ваниль", series: "Классика", one: "836 ₽", bulk: "774 ₽", subscription: "639 ₽", benefit: "выгода 135 ₽/бут" },
 ];
 
 const delivery = [
@@ -66,19 +71,13 @@ const delivery = [
 ];
 
 function ProcessIcon({ type }: { type: "catalog" | "agreement" | "calendar" }) {
-  return (
-    <span className={`process-icon process-icon-${type}`} aria-hidden="true">
-      <i /><b /><em />
-    </span>
-  );
+  const Icon = type === "catalog" ? FolderOpenIcon : type === "agreement" ? FileTextIcon : CalendarCheckIcon;
+  return <span className="process-icon" aria-hidden="true"><Icon size={31} weight="regular" /></span>;
 }
 
 function ScheduleIcon({ type }: { type: string }) {
-  return (
-    <span className={`schedule-icon schedule-icon-${type}`} aria-hidden="true">
-      <i /><b /><em /><small />
-    </span>
-  );
+  const Icon = type === "week" ? CalendarCheckIcon : type === "month" ? CalendarDotsIcon : CalendarBlankIcon;
+  return <span className="schedule-icon" aria-hidden="true"><Icon size={43} weight="regular" /></span>;
 }
 
 export default function Home() {
@@ -187,7 +186,7 @@ export default function Home() {
             <div className="section-label">Тарифы</div>
             <h2>Условия под структуру закупки</h2>
           </div>
-          <p>Лимит тарифа — максимальная сумма закупок по специальным условиям, а не обязательный объём заказа.</p>
+          <p>Лимит тарифа — максимальная сумма закупок по спеццене в месяц, а не обязательный объём заказа.</p>
         </div>
         <div className="plan-grid">
           {plans.map((plan) => (
@@ -206,29 +205,29 @@ export default function Home() {
       <section className="section prices" id="prices">
         <div className="section-head price-heading">
           <div>
-            <div className="section-label">Реальные уровни прайса</div>
-            <h2>Сравнительный прайс Herbarista: докажем экономию</h2>
+            <div className="section-label">Прайс Herbarista</div>
+            <h2>Не нужно покупать 150 бутылок ради оптовой цены</h2>
           </div>
-          <p>Сравните текущие закупки с нашим предложением. По подписке цена ниже уровня закупки от 150 бутылок.</p>
+          <p>Закупайте только необходимый объём на неделю или месяц по цене крупного опта.</p>
         </div>
         <div className="price-table" role="table" aria-label="Сравнительный прайс Herbarista">
           <div className="price-row price-row-head" role="row">
-            <span role="columnheader">Ценовая группа</span>
-            <span role="columnheader">1 бутылка</span>
-            <span role="columnheader">От 150 бутылок</span>
-            <span role="columnheader">По подписке</span>
+            <span role="columnheader">Продукт / вкус</span>
+            <span role="columnheader">Обычная цена<br />от 1 шт.</span>
+            <span role="columnheader">Крупный опт<br />от 150 шт.</span>
+            <span className="subscription-head" role="columnheader"><b>По подписке</b><small>Ваша цена</small></span>
           </div>
           {syrupRows.map((row) => (
-            <div className="price-row" role="row" key={row.group}>
-              <strong role="cell">{row.group}</strong>
+            <div className="price-row" role="row" key={row.product}>
+              <div className="price-product" role="cell"><strong>{row.product}</strong><small>{row.series}</small></div>
               <span role="cell">{row.one}</span>
               <span role="cell">{row.bulk}</span>
-              <b role="cell">{row.subscription}</b>
+              <div className="price-subscription" role="cell"><b>{row.subscription}</b><small>{row.benefit}</small></div>
             </div>
           ))}
         </div>
         <div className="price-foot">
-          <p><strong>5 000 ₽ в месяц</strong> — подписка на сиропы при закупках до 50 000 ₽.</p>
+          <p>* Построено на примере популярных вкусов. Спеццена по подписке распространяется на весь каталог Herbarista.</p>
           <a href="#request">Сравнить мой закупочный лист</a>
         </div>
       </section>
@@ -242,11 +241,11 @@ export default function Home() {
         <div className="trial-grid">
           <article>
             <span className="trial-index">01</span>
-            <div><h3>Первый этап</h3><strong>1–2 заказа без подписки</strong><p>Вы оплачиваете товар и доставку по обычным условиям и оцениваете продукт в работе.</p></div>
+            <div><h3>Первый этап</h3><strong>1–2 заказа без подписки</strong><p>Вы оплачиваете товар и доставку по обычным условиям и оцениваете продукт в работе. Тестовый заказ можно оформить в любой день месяца.</p></div>
           </article>
           <article>
             <span className="trial-index">02</span>
-            <div><h3>Подключение</h3><strong>Оплата с 1 по 5 число</strong><p>Если обращаетесь позже, тестируете до начала следующего месяца и затем подключаете тариф.</p></div>
+            <div><h3>Подключение</h3><strong>Оплата с 1 по 5 число</strong><p>Если вас всё устроило, подключаем тариф со следующего месяца.</p></div>
           </article>
         </div>
       </section>
