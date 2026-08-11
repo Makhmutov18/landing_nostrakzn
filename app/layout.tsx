@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     title: "Цены крупного опта — без крупного объёма",
     description: "B2B-подписка Coffee Nostra для заведений Казани.",
     type: "website",
-    images: [{ url: "/og.png", width: 1730, height: 900 }],
+    images: [{ url: "/og-v2.png", width: 1730, height: 900 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Цены крупного опта — без крупного объёма",
     description: "B2B-подписка Coffee Nostra для заведений Казани.",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
 };
 
