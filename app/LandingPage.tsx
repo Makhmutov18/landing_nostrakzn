@@ -261,16 +261,6 @@ export function LandingPage() {
       });
     });
 
-    media.add("(min-width: 980px) and (prefers-reduced-motion: no-preference)", () => {
-      ScrollTrigger.create({
-        trigger: ".price-story",
-        start: "top top+=112",
-        end: "bottom bottom-=80",
-        pin: ".price-pin",
-        pinSpacing: false,
-      });
-    });
-
     return () => media.revert();
   }, { scope: rootRef });
 
