@@ -4,6 +4,9 @@ import { CalendarCheckIcon } from "@phosphor-icons/react/dist/ssr/CalendarCheck"
 import { CalendarDotsIcon } from "@phosphor-icons/react/dist/ssr/CalendarDots";
 import { FileTextIcon } from "@phosphor-icons/react/dist/ssr/FileText";
 import { FolderOpenIcon } from "@phosphor-icons/react/dist/ssr/FolderOpen";
+import { DropIcon } from "@phosphor-icons/react/dist/ssr/Drop";
+import { FlaskIcon } from "@phosphor-icons/react/dist/ssr/Flask";
+import { TeaBagIcon } from "@phosphor-icons/react/dist/ssr/TeaBag";
 
 const plans = [
   {
@@ -11,6 +14,7 @@ const plans = [
     name: "Кофе",
     price: "7 000 ₽",
     limit: "до 70 000 ₽ закупок в месяц",
+    savings: "экономия — после расчёта по вашему прайсу",
     text: "Регулярные закупки зерна по подписочной цене в рамках установленного лимита.",
   },
   {
@@ -18,6 +22,7 @@ const plans = [
     name: "Сиропы",
     price: "5 000 ₽",
     limit: "до 50 000 ₽ закупок в месяц",
+    savings: "экономия — после расчёта по вашему прайсу",
     text: "Цены ниже уровня крупного опта без обязательной закупки 150 бутылок.",
   },
   {
@@ -25,6 +30,7 @@ const plans = [
     name: "Чай",
     price: "4 000 ₽",
     limit: "до 20 000 ₽ закупок в месяц",
+    savings: "экономия — после расчёта по вашему прайсу",
     text: "Поставка согласованного ассортимента под фактический расход заведения.",
   },
   {
@@ -32,6 +38,7 @@ const plans = [
     name: "Всё вместе",
     price: "14 990 ₽",
     limit: "до 250 000 ₽ закупок в месяц",
+    savings: "экономия — после расчёта по вашему прайсу",
     text: "Единая подписка на три категории и максимальный лимит для заведения.",
     featured: true,
   },
@@ -80,6 +87,11 @@ function ScheduleIcon({ type }: { type: string }) {
   return <span className="schedule-icon" aria-hidden="true"><Icon size={43} weight="regular" /></span>;
 }
 
+function BarCategoryIcon({ type }: { type: "syrup" | "tea" | "cordial" }) {
+  const Icon = type === "syrup" ? DropIcon : type === "tea" ? TeaBagIcon : FlaskIcon;
+  return <span className="bar-category-icon" aria-hidden="true"><Icon size={39} weight="regular" /></span>;
+}
+
 export default function Home() {
   return (
     <main id="top">
@@ -112,7 +124,7 @@ export default function Home() {
           <dl className="hero-facts">
             <div><dt>3 категории</dt><dd>кофе, чай, сиропы</dd></div>
             <div><dt>1–2 заказа</dt><dd>тест без подписки</dd></div>
-            <div><dt>Казань</dt><dd>плановая логистика</dd></div>
+            <div><dt>1 город</dt><dd>плановая логистика по Казани</dd></div>
           </dl>
         </div>
 
@@ -138,12 +150,15 @@ export default function Home() {
             <div className="market-segment market-segment-a" />
             <div className="market-segment market-segment-b" />
             <div className="market-segment market-segment-c" />
+            <span className="market-marker market-marker-one" aria-hidden="true" />
+            <span className="market-marker market-marker-bulk" aria-hidden="true" />
+            <span className="market-value market-value-one">718 ₽</span>
+            <span className="market-value market-value-bulk">656 ₽</span>
             <div className="subscription-line" />
             <span className="chart-point point-a" />
             <span className="chart-point point-b" />
             <span className="chart-point point-c" />
             <span className="chart-point point-d" />
-            <div className="subscription-note"><strong>Подписка</strong><span>цена ниже без роста запаса</span></div>
             <div className="x-label x-one">1</div>
             <div className="x-label x-fifty">50</div>
             <div className="x-label x-hundred">100</div>
@@ -194,7 +209,9 @@ export default function Home() {
               <div className="plan-meta"><span>{plan.index}</span>{plan.featured && <b>Комплексный тариф</b>}</div>
               <h3>{plan.name}</h3>
               <div className="plan-price">{plan.price}<small>в месяц</small></div>
+              <div className="plan-payment">+ оплата товара по факту заказа</div>
               <div className="plan-limit">{plan.limit}</div>
+              <div className="plan-savings">{plan.savings}</div>
               <p>{plan.text}</p>
               <a href="#request">Рассчитать тариф</a>
             </article>
@@ -279,9 +296,24 @@ export default function Home() {
           <a className="button button-outline" href="#request">Рассчитать тариф</a>
         </div>
         <div className="hookah-categories">
-          <div><span>01</span><strong>Сиропы Herbarista</strong><small>от 522 ₽ по подписке</small></div>
-          <div><span>02</span><strong>Чай</strong><small>поставка по согласованному графику</small></div>
-          <div><span>03</span><strong>Кордиалы</strong><small>основа для авторских напитков</small></div>
+          <article>
+            <div className="hookah-meta"><span>01</span><b>Барное меню</b></div>
+            <BarCategoryIcon type="syrup" />
+            <h3>Сиропы Herbarista</h3>
+            <p>От 522 ₽ по подписке</p>
+          </article>
+          <article>
+            <div className="hookah-meta"><span>02</span><b>Барное меню</b></div>
+            <BarCategoryIcon type="tea" />
+            <h3>Чай</h3>
+            <p>Поставка по согласованному графику</p>
+          </article>
+          <article>
+            <div className="hookah-meta"><span>03</span><b>Барное меню</b></div>
+            <BarCategoryIcon type="cordial" />
+            <h3>Кордиалы</h3>
+            <p>Основа для авторских напитков</p>
+          </article>
         </div>
       </section>
 
