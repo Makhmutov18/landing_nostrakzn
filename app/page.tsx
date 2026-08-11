@@ -38,9 +38,9 @@ const plans = [
 ];
 
 const syrupRows = [
-  { product: "Ананас", series: "Фруктовая серия", one: "718 ₽", bulk: "656 ₽", subscription: "522 ₽", benefit: "выгода 134 ₽/бут" },
-  { product: "Бабл-гам", series: "Десертная серия", one: "783 ₽", bulk: "721 ₽", subscription: "588 ₽", benefit: "выгода 133 ₽/бут" },
-  { product: "Ваниль", series: "Классика", one: "836 ₽", bulk: "774 ₽", subscription: "639 ₽", benefit: "выгода 135 ₽/бут" },
+  { product: "Ананас", series: "Фруктовая серия", one: "718 ₽", bulk: "656 ₽", subscription: "522 ₽", benefit: "выгода 196 ₽/бут" },
+  { product: "Бабл-гам", series: "Десертная серия", one: "783 ₽", bulk: "721 ₽", subscription: "588 ₽", benefit: "выгода 195 ₽/бут" },
+  { product: "Ваниль", series: "Классика", one: "836 ₽", bulk: "774 ₽", subscription: "639 ₽", benefit: "выгода 197 ₽/бут" },
 ];
 
 const delivery = [
@@ -94,7 +94,7 @@ export default function Home() {
           <a href="#prices">Прайс</a>
           <a href="#delivery">Поставки</a>
         </nav>
-        <a className="header-action" href="#request">Рассчитать экономию</a>
+        <a className="header-action" href="#request">Прислать закупочный лист</a>
       </header>
 
       <section className="hero">
@@ -106,7 +106,7 @@ export default function Home() {
             заморозки денег и дефицита товаров.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#request">Пришлите закупочный лист</a>
+            <a className="button button-primary" href="#request">Прислать закупочный лист</a>
             <a className="secondary-link" href="#prices">Посмотреть сравнение цен</a>
           </div>
           <dl className="hero-facts">
@@ -228,7 +228,7 @@ export default function Home() {
         </div>
         <div className="price-foot">
           <p>* Построено на примере популярных вкусов. Спеццена по подписке распространяется на весь каталог Herbarista.</p>
-          <a href="#request">Сравнить мой закупочный лист</a>
+          <a href="#request">Прислать закупочный лист</a>
         </div>
       </section>
 
@@ -276,7 +276,7 @@ export default function Home() {
           <div className="section-label">Для кальянных баров</div>
           <h2>Оптимизация барного меню кальянных баров</h2>
           <p>Соберите меню с высокой маржинальностью на основе сиропов, чая и кордиалов. Закупайте профессиональные ингредиенты без избыточного объёма.</p>
-          <a className="button button-outline" href="#request">Рассчитать закупку для бара</a>
+          <a className="button button-outline" href="#request">Рассчитать тариф</a>
         </div>
         <div className="hookah-categories">
           <div><span>01</span><strong>Сиропы Herbarista</strong><small>от 522 ₽ по подписке</small></div>

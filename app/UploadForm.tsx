@@ -67,7 +67,7 @@ export function UploadForm() {
           aria-label="Телефон или Telegram для ответа"
         />
       </label>
-      <button className="button button-dark" type="submit">Пришлите закупочный лист</button>
+      <button className="button button-dark" type="submit">Прислать закупочный лист</button>
       <p className="form-note" aria-live="polite">
         {message || "На iPad и телефоне откроется системное меню отправки файла."}
       </p>
