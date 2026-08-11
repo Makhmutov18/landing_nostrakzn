@@ -28,24 +28,28 @@ const plans = [
     name: "Кофе",
     price: "7 000 ₽",
     limit: "до 70 000 ₽ закупок в месяц",
-    text: "Подбираем предложения обжарщиков под ваш объём и рабочий профиль зерна.",
+    saving: "скидка 35% вместо 10% при заказе 10 кг",
+    text: "На примере Tasty Coffee: уровень скидки 35% для рабочего заказа 10 кг, плановая логистика включена.",
   },
   {
     name: "Сиропы",
     price: "5 000 ₽",
     limit: "до 50 000 ₽ закупок в месяц",
+    saving: "выгода 195–197 ₽/бут. от цены 1 шт.",
     text: "Цена ниже крупного опта без обязательной закупки 150 бутылок.",
   },
   {
     name: "Чай",
     price: "4 000 ₽",
     limit: "до 20 000 ₽ закупок в месяц",
+    saving: "экономия — после расчёта по вашему прайсу",
     text: "Согласованный ассортимент и ритм заказа под фактический расход.",
   },
   {
     name: "Всё вместе",
     price: "14 990 ₽",
     limit: "до 250 000 ₽ закупок в месяц",
+    saving: "экономия — после расчёта по вашему прайсу",
     text: "Одна точка входа для трёх категорий и максимальный лимит для заведения.",
     featured: true,
   },
@@ -55,6 +59,13 @@ const syrupRows = [
   { product: "Ананас", series: "Фруктовая серия", one: "718 ₽", bulk: "656 ₽", subscription: "522 ₽", benefit: "выгода 196 ₽/бут" },
   { product: "Бабл-гам", series: "Десертная серия", one: "783 ₽", bulk: "721 ₽", subscription: "588 ₽", benefit: "выгода 195 ₽/бут" },
   { product: "Ваниль", series: "Классика", one: "836 ₽", bulk: "774 ₽", subscription: "639 ₽", benefit: "выгода 197 ₽/бут" },
+];
+
+const coffeeDiscounts = [
+  { volume: "10 кг", discount: "10%" },
+  { volume: "25 кг", discount: "20%" },
+  { volume: "50 кг", discount: "30%" },
+  { volume: "от 350 кг", discount: "35%", active: true },
 ];
 
 const delivery = [
@@ -154,6 +165,48 @@ function EconomyGraph() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function CoffeeStory() {
+  return (
+    <section className="chapter coffee-story reveal-section" id="coffee" aria-labelledby="coffee-title">
+      <div className="coffee-intro">
+        <div>
+          <span className="section-kicker">Кофе · условия Tasty Coffee</span>
+          <h2 id="coffee-title">10 кг кофе — по цене уровня от 350 кг</h2>
+        </div>
+        <p>Напрямую заказ 10 кг даёт скидку 10% и платную доставку. Через Coffee Nostra — скидку 35% и бесплатную плановую логистику.</p>
+      </div>
+
+      <div className="bezel coffee-shell reveal-item">
+        <div className="coffee-tiers" aria-label="Уровни скидки Tasty Coffee">
+          <div className="coffee-tiers-head"><span>Объём заказа</span><span>Скидка</span></div>
+          {coffeeDiscounts.map((tier) => (
+            <div className={`coffee-tier${tier.active ? " coffee-tier-active" : ""}`} key={tier.volume}>
+              <span>{tier.volume}</span>
+              <strong>−{tier.discount}</strong>
+            </div>
+          ))}
+          <p>У поставщика скидка рассчитывается по общему объёму заказа.</p>
+        </div>
+
+        <div className="coffee-compare" aria-label="Сравнение заказа 10 килограммов напрямую и через Coffee Nostra">
+          <article className="coffee-route coffee-route-direct">
+            <header><span>Напрямую</span><small>заказ у поставщика</small></header>
+            <div><strong>10 кг</strong><b>−10%</b></div>
+            <footer>платная доставка</footer>
+          </article>
+          <span className="coffee-delta" aria-label="Разница 25 процентных пунктов">+25 п.п.</span>
+          <article className="coffee-route coffee-route-nostra">
+            <header><span>Coffee Nostra</span><small>объединённый объём</small></header>
+            <div><strong>10 кг</strong><b>−35%</b></div>
+            <footer>плановая логистика включена</footer>
+          </article>
+        </div>
+      </div>
+      <p className="coffee-note">Пример рассчитан для заказа 10 кг. Точная стоимость зависит от выбранного зерна и актуального прайса Tasty Coffee.</p>
     </section>
   );
 }
@@ -293,7 +346,7 @@ export function LandingPage() {
               <p>Coffee Nostra объединяет закупки заведений, согласует условия с поставщиками и передаёт вам специальную цену на необходимый объём.</p>
               <div className="hero-actions">
                 <ActionLink href="#request">Прислать закупочный лист</ActionLink>
-                <ActionLink href="#prices" secondary>Посмотреть сравнение цен</ActionLink>
+                <ActionLink href="#coffee" secondary>Посмотреть сравнение цен</ActionLink>
               </div>
               <p className="role-note"><CheckCircleIcon size={17} weight="light" /> Мы не производим товар — мы организуем выгодную и предсказуемую закупку.</p>
             </div>
@@ -345,7 +398,7 @@ export function LandingPage() {
                   <div className="plan-price">{plan.price}<small>/ мес</small></div>
                   <strong className="plan-limit">{plan.limit}</strong>
                   <span className="plan-payment">+ оплата товара по факту заказа</span>
-                  <span className="plan-saving">экономия — после расчёта по вашему прайсу</span>
+                  <span className="plan-saving">{plan.saving}</span>
                   <p>{plan.text}</p>
                   <a href="#request">Рассчитать тариф <span><ArrowUpRightIcon size={16} /></span></a>
                 </article>
@@ -353,6 +406,8 @@ export function LandingPage() {
             </div>
           </div>
         </section>
+
+        <CoffeeStory />
 
         <PriceStory />
 
@@ -413,7 +468,7 @@ export function LandingPage() {
 
       <footer>
         <div><Brand light /><p>Связываем заведения Казани с поставщиками кофе, чая и сиропов на специальных условиях.</p></div>
-        <div className="footer-links"><a href="#process">Как работает</a><a href="#plans">Тарифы</a><a href="#prices">Прайс Herbarista</a><a href="#delivery">Поставки</a></div>
+        <div className="footer-links"><a href="#process">Как работает</a><a href="#plans">Тарифы</a><a href="#coffee">Экономика кофе</a><a href="#prices">Прайс Herbarista</a><a href="#delivery">Поставки</a></div>
         <a className="footer-top" href="#top">Наверх <span><ArrowUpRightIcon size={15} /></span></a>
       </footer>
     </main>

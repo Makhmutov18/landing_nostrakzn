@@ -1,5 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#0e0f0e",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://coffee-nostra-kazan.makhmutov18m.chatgpt.site"),
@@ -10,11 +15,13 @@ export const metadata: Metadata = {
     title: "Цены крупного опта — без крупного объёма",
     description: "B2B-посредник между поставщиками и заведениями Казани.",
     type: "website",
+    images: [{ url: "/og.png", alt: "Coffee Nostra — цены крупного опта без крупного объёма" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Цены крупного опта — без крупного объёма",
     description: "B2B-посредник между поставщиками и заведениями Казани.",
+    images: ["/og.png"],
   },
 };
 
