@@ -366,26 +366,12 @@ export function LandingPage() {
   useGSAP(() => {
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(".hero-display > span", {
-        yPercent: 108,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.07,
-        ease: "power4.out",
-      });
-      gsap.from(".hero-copy > .micro-label, .hero-copy-bottom, .hero-proof", {
-        opacity: 0,
-        duration: 0.65,
-        stagger: 0.07,
-        delay: 0.12,
-        clearProps: "opacity",
-        ease: "power3.out",
-      });
       gsap.from(".hero-proof-number", {
         scale: 0.84,
         transformOrigin: "left center",
         duration: 1.1,
         delay: 0.42,
+        clearProps: "transform",
         ease: "expo.out",
       });
       gsap.to(".scroll-progress", {
