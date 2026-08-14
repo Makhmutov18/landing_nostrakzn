@@ -265,8 +265,8 @@ function CoffeeSection() {
             <div className="discount-track"><i /></div>
           </div>
           <div className="discount-delta">
-            <strong>{gap > 0 ? `+${gap} п.п.` : "тот же уровень"}</strong>
-            <span>{gap > 0 ? "к прямой скидке" : "без закупки 350 кг"}</span>
+            <strong>{gap > 0 ? `+${gap}` : "35%"}</strong>
+            <span>{gap > 0 ? "процентных пунктов к прямой скидке" : "та же скидка без закупки 350 кг"}</span>
           </div>
         </div>
         <p>{tier.kilos === 350
@@ -459,7 +459,8 @@ export function LandingPage() {
             <h1 id="hero-title" className="hero-display" aria-label="Хороший продукт вы уже нашли. Покупайте его выгоднее.">
               <span>Хороший продукт</span>
               <span>вы уже нашли.</span>
-              <span className="accent">Покупайте его выгоднее.</span>
+              <span className="accent">Покупайте его</span>
+              <span className="accent">выгоднее.</span>
             </h1>
             <div className="hero-copy-bottom">
               <p>Nostra не производит кофе, чай или сиропы. Мы помогаем заведениям покупать уже знакомые бренды на лучших коммерческих условиях.</p>

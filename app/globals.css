@@ -137,8 +137,8 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .site-header nav, .site-footer nav { display: flex; align-items: center; gap: 26px; }
 .site-header nav a {
   padding: 10px 0;
-  font-size: 13px;
-  font-weight: 540;
+  font-size: 15px;
+  font-weight: 580;
   letter-spacing: -.015em;
   transition: color 480ms var(--ease);
 }
@@ -153,7 +153,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   border-radius: 999px;
   color: var(--bone);
   background: var(--oxblood);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   transition: background 480ms var(--ease), transform 480ms var(--ease);
 }
@@ -209,9 +209,9 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 }
 
 .hero {
-  min-height: 790px;
+  min-height: clamp(820px, calc(100svh - 108px), 900px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 27vw, 420px);
   gap: 1px;
   background-color: var(--line);
 }
@@ -227,7 +227,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .hero-display {
   margin: clamp(54px, 7vh, 82px) 0 0;
   font-family: var(--display);
-  font-size: clamp(4.8rem, 6.7vw, 7.25rem);
+  font-size: clamp(5.6rem, 7.45vw, 8.3rem);
   font-weight: 825;
   letter-spacing: -.025em;
   line-height: .76;
@@ -239,14 +239,15 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 }
 .hero-display .accent { color: var(--oxblood); }
 .hero-copy-bottom {
-  margin-top: auto;
-  padding-top: 58px;
+  margin-top: clamp(86px, 12vh, 144px);
+  padding-top: 34px;
   display: grid;
-  grid-template-columns: minmax(240px, 460px) auto;
+  grid-template-columns: minmax(260px, 1fr) minmax(270px, 360px);
   align-items: end;
   gap: 38px;
   border-top: 1px solid var(--line);
 }
+.hero-copy-bottom .action-link { width: 100%; justify-self: end; }
 .hero-copy-bottom p {
   margin: 0;
   font-size: clamp(15px, 1.25vw, 19px);
@@ -414,7 +415,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .partner-ledger article {
   min-height: 198px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 34%);
   align-items: stretch;
   border-bottom: 1px solid var(--line);
 }
@@ -427,7 +428,8 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .partner-brand strong { margin-top: auto; font-size: clamp(2rem, 3.2vw, 3.4rem); letter-spacing: -.055em; }
 .partner-brand small { margin-top: 5px; color: var(--muted); }
 .partner-condition {
-  min-width: 220px;
+  min-width: 0;
+  width: 100%;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -638,8 +640,8 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   gap: 20px;
   border-top: 1px solid var(--line-light);
 }
-.discount-delta strong { color: var(--bone); font-family: var(--display); font-size: 42px; line-height: .8; text-transform: uppercase; }
-.discount-delta span { max-width: 120px; color: rgba(239,236,228,.54); font-size: 10px; text-align: right; text-transform: uppercase; }
+.discount-delta strong { color: var(--bone); font-family: var(--display); font-size: 58px; line-height: .8; text-transform: uppercase; }
+.discount-delta span { max-width: 200px; color: rgba(239,236,228,.62); font-size: 11px; line-height: 1.3; text-align: right; text-transform: uppercase; }
 .coffee-facts > p { margin: auto 0 0; font-size: 17px; }
 .coffee-facts > small { margin-top: 28px; color: rgba(239,236,228,.52); font-size: 10px; }
 
@@ -668,22 +670,22 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   border-bottom: 1px solid var(--line-soft);
 }
 .price-ledger-head > * {
-  min-height: 60px;
+  min-height: 68px;
   display: flex;
   align-items: center;
   font-family: var(--display);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 730;
   letter-spacing: .07em;
   text-transform: uppercase;
 }
 .price-ledger-head > *:last-child { color: var(--bone); background: var(--oxblood); }
-.price-ledger-row > * { min-height: 148px; display: flex; align-items: center; font-size: 20px; font-variant-numeric: tabular-nums; }
+.price-ledger-row > * { min-height: 170px; display: flex; align-items: center; font-size: clamp(25px, 2vw, 31px); font-variant-numeric: tabular-nums; }
 .price-ledger-row > div:first-child, .price-ledger-result { flex-direction: column; align-items: flex-start; justify-content: center; }
-.price-ledger-row div:first-child strong { font-size: 22px; }
-.price-ledger-row small { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; }
+.price-ledger-row div:first-child strong { font-size: clamp(25px, 2vw, 31px); letter-spacing: -.035em; }
+.price-ledger-row small { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
 .price-ledger-result { color: var(--bone); background: var(--oxblood); }
-.price-ledger-result strong { font-family: var(--display); font-size: 54px; line-height: .8; }
+.price-ledger-result strong { font-family: var(--display); font-size: clamp(68px, 5.3vw, 84px); line-height: .78; }
 .price-ledger-result small { color: rgba(239,236,228,.7); }
 .legal-note { margin: 18px 0 0; color: var(--muted); font-size: 10px; }
 
@@ -939,7 +941,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   :root { --page: calc(100vw - 16px); }
   .site-header { top: 8px; min-height: 64px; margin: 8px auto; padding: 5px 5px 5px 14px; border-radius: 13px; }
   .nostra-logo { width: 84px; }
-  .header-action { min-height: 46px; max-width: 196px; padding: 5px 5px 5px 13px; text-align: left; font-size: 11px; }
+  .header-action { min-height: 46px; max-width: 210px; padding: 5px 5px 5px 13px; text-align: left; font-size: 12px; }
   .header-action-icon { width: 36px; height: 36px; }
   .hero, .voice-section, .partner-section, .process-section, .plans-section,
   .coffee-section, .syrup-section, .operations-section, .bar-section,
@@ -949,8 +951,8 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   .display-title { font-size: clamp(4.15rem, 20vw, 6.2rem); line-height: .78; }
   .hero { min-height: 0; }
   .hero-copy { min-height: 680px; padding: 34px 18px 24px; }
-  .hero-display { margin-top: 55px; font-size: clamp(4rem, 19vw, 5.8rem); line-height: .76; }
-  .hero-copy-bottom { grid-template-columns: 1fr; gap: 25px; padding-top: 28px; }
+  .hero-display { margin-top: 55px; font-size: clamp(3.8rem, 17vw, 5.4rem); line-height: .76; }
+  .hero-copy-bottom { margin-top: auto; grid-template-columns: 1fr; gap: 25px; padding-top: 28px; }
   .hero-copy-bottom p { font-size: 14px; }
   .action-link { width: 100%; }
   .hero-proof { min-height: 540px; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
