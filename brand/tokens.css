@@ -1,14 +1,15 @@
 :root {
   /* Nostra identity — selected direction: Commercial Voice */
-  --nostra-ink: #141414;
-  --nostra-night: #0b0b0b;
-  --nostra-bone: #f2efe8;
-  --nostra-paper: #fcfbf7;
-  --nostra-stone: #b9b2a6;
-  --nostra-oxblood: #7a1825;
-  --nostra-oxblood-deep: #5d101a;
+  --nostra-ink: #151515;
+  --nostra-night: #101010;
+  --nostra-bone: #efece4;
+  --nostra-paper: #f8f5ee;
+  --nostra-stone: #b8b2a8;
+  --nostra-oxblood: #8f1d2c;
+  --nostra-oxblood-deep: #741522;
 
   --nostra-font: "Geist", "Golos Text", system-ui, sans-serif;
+  --nostra-display-font: "Alumni Sans Variable", "Geist", sans-serif;
   --nostra-font-feature-settings: "tnum" 1, "ss01" 1;
 
   --nostra-space-1: 4px;

@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import "@fontsource-variable/alumni-sans";
 import "./globals.css";
 
 export const viewport: Viewport = {
   colorScheme: "light dark",
-  themeColor: "#f2efe8",
+  themeColor: "#efece4",
 };
 
 export const metadata: Metadata = {
