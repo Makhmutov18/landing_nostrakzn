@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,7 +23,7 @@ const plans = [
     name: "Кофе",
     price: "7 000",
     limit: "до 70 000 ₽ закупок в месяц",
-    proof: "Tasty Coffee: −35% при заказе от 10 кг",
+    proof: "Tasty Coffee: скидка 35% через Nostra",
     text: "Условия уровня закупки 350 кг и бесплатная плановая логистика.",
   },
   {
@@ -66,13 +66,6 @@ const process = [
   { label: "Закупочный лист", title: "Передайте фактические позиции и цены", text: "Файл или короткое описание месячного объёма.", icon: FileArrowUpIcon },
   { label: "Расчёт", title: "Получите сравнение в цифрах", text: "Товар, подписка и чистая экономия за месяц.", icon: ReceiptIcon },
   { label: "Поставка", title: "Заказывайте нужный объём", text: "Оплачивайте только фактически заказанный товар.", icon: CalendarCheckIcon },
-];
-
-const coffeeTiers = [
-  { kilos: 10, direct: 10 },
-  { kilos: 25, direct: 20 },
-  { kilos: 50, direct: 30 },
-  { kilos: 350, direct: 35 },
 ];
 
 const tickerItems = [
@@ -225,11 +218,6 @@ function PlansSection() {
 }
 
 function CoffeeSection() {
-  const [tierIndex, setTierIndex] = useState(0);
-  const tier = coffeeTiers[tierIndex];
-  const gap = 35 - tier.direct;
-  const directScale = { "--bar-scale": tier.direct / 35 } as CSSProperties;
-
   return (
     <section className="coffee-section" id="coffee" aria-labelledby="coffee-title">
       <div className="coffee-poster poster-red" data-reveal>
@@ -237,41 +225,30 @@ function CoffeeSection() {
         <h2 id="coffee-title" className="display-title">Условия уровня<br />крупного опта.</h2>
         <strong className="coffee-number">−35%</strong>
         <footer>
-          <p>при заказе от 10 кг через Nostra</p>
+          <p>на подтверждённый ассортимент через Nostra</p>
           <span>плановая логистика включена</span>
         </footer>
       </div>
       <div className="coffee-facts poster-dark" data-reveal>
-        <span className="micro-label micro-label-light">Сравните условия</span>
-        <div className="discount-selector" aria-label="Выберите объём разового заказа">
-          {coffeeTiers.map((item, index) => (
-            <button
-              key={item.kilos}
-              type="button"
-              aria-pressed={index === tierIndex}
-              onClick={() => setTierIndex(index)}
-            >
-              {item.kilos} кг
-            </button>
-          ))}
+        <span className="micro-label micro-label-light">Условия через Nostra</span>
+        <strong className="coffee-facts-lead">Не меняйте кофе.<br />Поменяйте условия.</strong>
+        <div className="coffee-terms">
+          <article>
+            <span>Скидка</span>
+            <strong>35%</strong>
+            <p>На подтверждённый ассортимент Tasty Coffee.</p>
+          </article>
+          <article>
+            <span>Уровень условий</span>
+            <strong>350 кг</strong>
+            <p>Цена соответствует максимальной оптовой колонке производителя.</p>
+          </article>
+          <article>
+            <span>Логистика</span>
+            <strong>Включена</strong>
+            <p>Плановые поставки в Казань без отдельной оплаты доставки.</p>
+          </article>
         </div>
-        <div className="discount-chart" aria-live="polite">
-          <div className="discount-chart-row">
-            <header><span>Напрямую</span><strong>{tier.direct}%</strong></header>
-            <div className="discount-track"><i style={directScale} /></div>
-          </div>
-          <div className="discount-chart-row discount-chart-row-nostra">
-            <header><span>Через Nostra</span><strong>35%</strong></header>
-            <div className="discount-track"><i /></div>
-          </div>
-          <div className="discount-delta">
-            <strong>{gap > 0 ? `+${gap}` : "35%"}</strong>
-            <span>{gap > 0 ? "процентных пунктов к прямой скидке" : "та же скидка без закупки 350 кг"}</span>
-          </div>
-        </div>
-        <p>{tier.kilos === 350
-          ? "Та же скидка 35%, но без необходимости замораживать деньги в закупке 350 кг."
-          : `При прямом заказе ${tier.kilos} кг действует скидка ${tier.direct}%. Через Nostra тот же объём получает скидку 35%.`}</p>
         <small>Точная стоимость зависит от выбранного зерна и актуального прайса производителя.</small>
       </div>
     </section>
@@ -426,7 +403,7 @@ export function LandingPage() {
           <aside className="hero-proof" aria-label="Подтверждённое условие Tasty Coffee">
             <header><span>Бренд производителя</span><strong>Tasty Coffee</strong></header>
             <div className="hero-proof-number">−35%</div>
-            <p>при заказе от 10 кг</p>
+            <p>скидка через Nostra</p>
             <footer><span>условия через</span><b>Nostra</b></footer>
           </aside>
         </section>
