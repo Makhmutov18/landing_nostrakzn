@@ -3,56 +3,96 @@
 import { FormEvent, useRef, useState } from "react";
 import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowUpRight";
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+type MessageKind = "idle" | "success" | "error";
+
 export function UploadForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [purchaseDetails, setPurchaseDetails] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
+  const [messageKind, setMessageKind] = useState<MessageKind>("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  function showMessage(text: string, kind: MessageKind) {
+    setMessage(text);
+    setMessageKind(kind);
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!file && !purchaseDetails.trim()) {
-      setMessage("Прикрепите файл или опишите примерный объём закупки.");
+      showMessage("Прикрепите файл или опишите примерный объём закупки.", "error");
       return;
     }
 
-    const shareData: ShareData = {
-      title: "Закупочный лист для Coffee Nostra",
-      text: [
-        contact ? `Контакт для ответа: ${contact}` : "Расчёт экономии Coffee Nostra",
-        purchaseDetails.trim() ? `Примерный объём закупки: ${purchaseDetails.trim()}` : "",
-      ].filter(Boolean).join("\n"),
-      ...(file ? { files: [file] } : {}),
-    };
+    if (!contact.trim()) {
+      showMessage("Укажите телефон, Telegram или другой контакт для ответа.", "error");
+      return;
+    }
 
-    if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
-      try {
-        await navigator.share(shareData);
-        setMessage("Файл передан в выбранный вами канал.");
-      } catch (error) {
-        if ((error as Error).name !== "AbortError") {
-          setMessage("Не удалось открыть меню отправки. Попробуйте ещё раз.");
-        }
+    if (file && file.size > MAX_FILE_SIZE) {
+      showMessage("Файл превышает 10 МБ. Выберите файл меньшего размера.", "error");
+      return;
+    }
+
+    const formData = new FormData();
+    if (file) formData.append("file", file);
+    formData.append("purchaseDetails", purchaseDetails.trim());
+    formData.append("contact", contact.trim());
+    formData.append("website", "");
+
+    setIsSubmitting(true);
+    showMessage("Отправляем заявку…", "idle");
+
+    try {
+      const response = await fetch("/api/request", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json().catch(() => null)) as { message?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(result?.message || "Не удалось отправить заявку.");
       }
-      return;
-    }
 
-    setMessage("Файл выбран. На этом устройстве отправьте его менеджеру через привычный канал связи.");
+      setFile(null);
+      setPurchaseDetails("");
+      setContact("");
+      if (inputRef.current) inputRef.current.value = "";
+      showMessage("Заявка отправлена. B2B‑менеджер свяжется с вами после расчёта.", "success");
+    } catch (error) {
+      showMessage(
+        error instanceof Error ? error.message : "Не удалось отправить заявку. Попробуйте ещё раз.",
+        "error",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <form className="upload-card" onSubmit={submit}>
+    <form className="upload-card" onSubmit={submit} aria-busy={isSubmitting}>
       <div className="upload-head"><span>Закупочный лист</span></div>
       <label className="upload-zone">
         <input
           ref={inputRef}
           type="file"
           accept=".pdf,.xlsx,.xls,.csv,.jpg,.jpeg,.png"
+          disabled={isSubmitting}
           onChange={(event) => {
-            setFile(event.target.files?.[0] ?? null);
-            setMessage("");
+            const nextFile = event.target.files?.[0] ?? null;
+            if (nextFile && nextFile.size > MAX_FILE_SIZE) {
+              event.target.value = "";
+              setFile(null);
+              showMessage("Файл превышает 10 МБ. Выберите файл меньшего размера.", "error");
+              return;
+            }
+            setFile(nextFile);
+            showMessage("", "idle");
           }}
         />
         <span className="upload-icon" aria-hidden="true"><i /><b /></span>
@@ -63,9 +103,11 @@ export function UploadForm() {
         <span>Или опишите примерный объём закупки</span>
         <textarea
           value={purchaseDetails}
+          disabled={isSubmitting}
+          maxLength={3000}
           onChange={(event) => {
             setPurchaseDetails(event.target.value);
-            setMessage("");
+            showMessage("", "idle");
           }}
           placeholder="Например: 20 кг кофе, 30 бутылок сиропа и 5 кг чая в месяц"
           rows={3}
@@ -77,17 +119,28 @@ export function UploadForm() {
         <input
           type="text"
           value={contact}
-          onChange={(event) => setContact(event.target.value)}
-          placeholder="Телефон или Telegram"
-          aria-label="Телефон или Telegram для ответа"
+          disabled={isSubmitting}
+          maxLength={300}
+          required
+          onChange={(event) => {
+            setContact(event.target.value);
+            showMessage("", "idle");
+          }}
+          placeholder="Телефон, Telegram или email"
+          aria-label="Контакт для ответа"
         />
       </label>
-      <button className="button button-dark" type="submit">
-        <span>Прислать закупочный лист</span>
+      <label className="form-honeypot" aria-hidden="true">
+        <span>Ваш сайт</span>
+        <input name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </label>
+      <button className="button button-dark" type="submit" disabled={isSubmitting}>
+        <span>{isSubmitting ? "Отправляем…" : "Прислать закупочный лист"}</span>
         <span className="button-icon" aria-hidden="true"><ArrowUpRightIcon size={17} weight="regular" /></span>
       </button>
-      <p className="form-note" aria-live="polite">
-        {message || "На iPad и телефоне откроется системное меню отправки файла."}
+      <p className="form-consent">Нажимая кнопку, вы соглашаетесь на обработку данных для подготовки расчёта.</p>
+      <p className={`form-note form-note-${messageKind}`} aria-live="polite">
+        {message || "Заявка и файл будут отправлены напрямую B2B‑менеджеру."}
       </p>
     </form>
   );

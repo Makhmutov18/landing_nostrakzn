@@ -393,7 +393,12 @@ h1, h2, h3, p { margin: 0; }
 .button-dark { width: 100%; background: var(--ink); color: var(--paper); }
 .button-dark .button-icon { background: rgba(14, 15, 14, 0.1); }
 .button-dark:hover { background: white; transform: translateY(-2px); }
+.button-dark:disabled { cursor: wait; opacity: 0.62; transform: none; }
+.form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-consent { margin: 12px auto 0; max-width: 420px; color: #777870; font-size: 8px; line-height: 1.5; text-align: center; }
 .form-note { margin: 12px 0 0; color: var(--muted); font-size: 9px; line-height: 1.45; text-align: center; }
+.form-note-success { color: var(--ink); }
+.form-note-error { color: #d8d7d0; }
 
 footer {
   min-height: 250px;
