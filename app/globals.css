@@ -17,7 +17,7 @@
   --line: rgba(21, 21, 21, 0.34);
   --line-soft: rgba(21, 21, 21, 0.16);
   --line-light: rgba(239, 236, 228, 0.32);
-  --page: min(1520px, calc(100vw - 32px));
+  --page: calc(100% - 32px);
   --display: "Alumni Sans Variable", "Geist", sans-serif;
   --body: "Geist", sans-serif;
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
@@ -922,7 +922,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 }
 
 @media (max-width: 760px) {
-  :root { --page: calc(100vw - 16px); }
+  :root { --page: calc(100% - 16px); }
   .site-header { top: 8px; min-height: 64px; margin: 8px auto; padding: 5px 5px 5px 14px; border-radius: 13px; }
   .nostra-logo { width: 84px; }
   .header-action { min-height: 46px; max-width: 210px; padding: 5px 5px 5px 13px; text-align: left; font-size: 12px; }
