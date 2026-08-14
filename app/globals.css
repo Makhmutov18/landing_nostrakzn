@@ -444,7 +444,9 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   line-height: .8;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
+.partner-ledger article:nth-child(2) .partner-condition strong { font-size: clamp(50px, 3.2vw, 62px); }
 .partner-condition span { margin-top: 13px; font-size: 11px; }
 
 .process-section {
