@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tasty Coffee — скидка 35% через Nostra</title>
+  <desc id="desc">Шаблон подтверждённого коммерческого факта.</desc>
+  <rect width="1200" height="720" fill="#7A1825"/>
+  <g font-family="Geist, Golos Text, sans-serif" fill="#F2EFE8">
+    <text x="72" y="90" font-size="24" font-weight="620" letter-spacing="1">TASTY COFFEE · ПОДТВЕРЖДЁННОЕ УСЛОВИЕ</text>
+    <text x="64" y="470" font-size="360" font-weight="900" letter-spacing="-24">−35%</text>
+    <text x="76" y="552" font-size="56" font-weight="690" letter-spacing="-2">через Nostra</text>
+    <text x="76" y="640" font-size="24" font-weight="420">Тот же продукт. Другие условия закупки.</text>
+  </g>
+</svg>

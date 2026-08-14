@@ -15,15 +15,15 @@ async function render() {
   );
 }
 
-test("server-renders the Coffee Nostra landing page", async () => {
+test("server-renders the Nostra landing page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
   assert.match(html, /<html lang="ru">/i);
-  assert.match(html, /<title>Coffee Nostra/i);
-  assert.match(html, /Закупайте напитки/);
+  assert.match(html, /<title>Nostra/i);
+  assert.match(html, /Те же бренды/);
   assert.match(html, /id="request"/);
   assert.match(html, /Прислать закупочный лист/);
   assert.doesNotMatch(html, /codex-preview/i);

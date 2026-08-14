@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">Nostra N</title>
+  <desc id="desc">Сокращённый знак Nostra для малых цифровых форматов.</desc>
+  <rect width="180" height="180" rx="24" fill="#7A1825"/>
+  <g fill="#F2EFE8" transform="translate(24 20)">
+    <path d="M0 0h25v140H0zM107 0h25v140h-25zM25 0h25l57 99v41H82L25 41z"/>
+  </g>
+</svg>

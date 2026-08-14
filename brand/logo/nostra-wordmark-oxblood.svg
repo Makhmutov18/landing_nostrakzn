@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 704 180" role="img" aria-labelledby="title desc">
+  <title id="title">Nostra</title>
+  <desc id="desc">Бордовый акцентный wordmark Nostra на прозрачном фоне.</desc>
+  <g fill="#7A1825">
+    <path d="M20 20h23v140H20zM93 20h23v140H93zM43 20h23l27 98v42H70L43 62z"/>
+    <path fill-rule="evenodd" d="M158 20h42c27 0 41 14 41 41v58c0 27-14 41-41 41h-42c-27 0-41-14-41-41V61c0-27 14-41 41-41Zm4 28c-11 0-17 6-17 18v48c0 12 6 18 17 18h34c11 0 17-6 17-18V66c0-12-6-18-17-18h-34Z"/>
+    <path d="M266 20h51v28h-39c-9 0-13 4-13 12 0 7 4 11 13 13l18 4c21 5 31 18 31 41 0 28-15 42-44 42h-40v-28h42c10 0 15-4 15-13 0-7-4-11-14-13l-18-4c-20-5-30-18-30-41 0-27 14-41 42-41h16Z"/>
+    <path d="M337 20h103v29h-39v111h-25V49h-39z"/>
+    <path fill-rule="evenodd" d="M451 20h57c30 0 45 15 45 44 0 20-8 33-23 40l29 56h-31l-24-50h-25v50h-28V20Zm28 28v37h26c13 0 20-6 20-18 0-13-7-19-20-19h-26Z"/>
+    <path fill-rule="evenodd" d="M606 20h34l44 140h-29l-8-28h-51l-8 28h-28l46-140Zm15 34-17 51h35l-18-51Z"/>
+  </g>
+</svg>

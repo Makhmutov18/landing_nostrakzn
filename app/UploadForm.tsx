@@ -156,12 +156,12 @@ export function UploadForm() {
         <div className="success-dialog-panel">
           <div className="success-dialog-topline">
             <span>Заявка принята</span>
-            <span aria-hidden="true">CN / KZN</span>
+            <span aria-hidden="true">NOSTRA · КАЗАНЬ</span>
           </div>
           <div className="success-dialog-mark" aria-hidden="true">✓</div>
           <h3 id="success-dialog-title">Всё отправлено</h3>
           <p id="success-dialog-description">
-            Закупочный лист и контакт уже переданы B2B‑менеджеру Coffee Nostra в Telegram.
+            Закупочный лист и контакт уже переданы B2B‑менеджеру Nostra в Telegram.
           </p>
           <p className="success-dialog-note">Можно закрыть страницу — заявка уже доставлена.</p>
           <button className="button success-dialog-button" type="button" onClick={() => successDialogRef.current?.close()}>

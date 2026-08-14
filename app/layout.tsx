@@ -2,25 +2,25 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: "#0e0f0e",
+  colorScheme: "light dark",
+  themeColor: "#f2efe8",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://coffee-nostra-kazan.makhmutov18m.chatgpt.site"),
-  title: "Coffee Nostra — B2B-подписка для заведений Казани",
+  title: "Nostra — выгодные условия закупки для заведений Казани",
   description:
-    "Coffee Nostra объединяет закупки заведений, согласует условия с поставщиками и помогает покупать кофе, чай и сиропы без лишнего объёма.",
+    "Nostra помогает заведениям Казани покупать знакомые бренды кофе, сиропов и чая на более выгодных коммерческих условиях.",
   openGraph: {
-    title: "Цены крупного опта — без крупного объёма",
-    description: "B2B-посредник между поставщиками и заведениями Казани.",
+    title: "Те же бренды. Лучше условия.",
+    description: "Nostra — коммерческий партнёр между производителями и заведениями Казани.",
     type: "website",
-    images: [{ url: "/og.png", alt: "Coffee Nostra — цены крупного опта без крупного объёма" }],
+    images: [{ url: "/og.png", alt: "Nostra — те же бренды, лучше условия" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Цены крупного опта — без крупного объёма",
-    description: "B2B-посредник между поставщиками и заведениями Казани.",
+    title: "Те же бренды. Лучше условия.",
+    description: "Nostra — коммерческий партнёр между производителями и заведениями Казани.",
     images: ["/og.png"],
   },
 };

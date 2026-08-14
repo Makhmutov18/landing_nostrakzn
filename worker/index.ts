@@ -46,7 +46,7 @@ async function sendTelegram(
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return false;
 
   const caption = [
-    "Новая заявка Coffee Nostra",
+    "Новая заявка Nostra",
     `Контакт: ${contact}`,
     purchaseDetails ? `Закупка: ${purchaseDetails}` : "",
   ].filter(Boolean).join("\n").slice(0, 950);

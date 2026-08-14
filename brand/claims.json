@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "last_verified": "2026-08-14",
+  "rules": {
+    "currency": "RUB",
+    "unknown_values": "Never estimate or publish without confirmation",
+    "savings_baseline": "Use the ordinary price from 1 unit unless a comparison explicitly states otherwise"
+  },
+  "tasty_coffee": {
+    "status": "confirmed partner product",
+    "nostra_discount_percent": 35,
+    "direct_discount_ladder_percent": {
+      "10_kg": 10,
+      "25_kg": 20,
+      "50_kg": 30,
+      "350_kg": 35
+    },
+    "verified_comparison": "At a 10 kg order: 10% direct versus 35% through Nostra",
+    "nostra_logistics": "free",
+    "subscription_rub_per_month": 7000,
+    "special_price_purchase_limit_rub_per_month": 70000,
+    "order_cycle": "pre-order on Mondays; dispatch within the week"
+  },
+  "herbarista": {
+    "status": "confirmed independent partner product",
+    "subscription_rub_per_month": 5000,
+    "special_price_purchase_limit_rub_per_month": 50000,
+    "delivery_cycle": "2 planned deliveries to Kazan per month",
+    "examples": [
+      {
+        "product": "Ананас",
+        "series": "Фруктовая серия",
+        "ordinary_from_1_rub": 718,
+        "large_wholesale_from_150_rub": 656,
+        "nostra_subscription_rub": 522,
+        "saving_vs_ordinary_rub_per_bottle": 196
+      },
+      {
+        "product": "Бабл-гам",
+        "series": "Десертная серия",
+        "ordinary_from_1_rub": 783,
+        "large_wholesale_from_150_rub": 721,
+        "nostra_subscription_rub": 588,
+        "saving_vs_ordinary_rub_per_bottle": 195
+      },
+      {
+        "product": "Ваниль",
+        "series": "Классика",
+        "ordinary_from_1_rub": 836,
+        "large_wholesale_from_150_rub": 774,
+        "nostra_subscription_rub": 639,
+        "saving_vs_ordinary_rub_per_bottle": 197
+      }
+    ]
+  },
+  "tea": {
+    "subscription_rub_per_month": 4000,
+    "special_price_purchase_limit_rub_per_month": 20000,
+    "delivery_cycle": "agreed schedule"
+  },
+  "bundle": {
+    "categories": ["coffee", "tea", "syrups"],
+    "subscription_rub_per_month": 14990,
+    "special_price_purchase_limit_rub_per_month": 250000
+  },
+  "trial": {
+    "orders_without_subscription": "1–2",
+    "customer_pays": ["goods", "delivery"],
+    "subscription_payment_window": "1–5 day of the month",
+    "late_month_lead": "tests until the next month"
+  },
+  "excluded_until_confirmed": ["Submarine", "Сварщица Екатерина"]
+}

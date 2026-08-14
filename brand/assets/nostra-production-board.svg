@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Nostra — production identity board</title>
+  <desc id="desc">Финальная система направления Коммерческий голос.</desc>
+  <rect width="1600" height="1000" fill="#0B0B0B"/>
+  <g font-family="Geist, Golos Text, sans-serif">
+    <rect x="24" y="24" width="880" height="286" fill="#F2EFE8"/>
+    <g fill="#141414" transform="translate(70 64) scale(.78)"><path d="M20 20h23v140H20zM93 20h23v140H93zM43 20h23l27 98v42H70L43 62z"/><path fill-rule="evenodd" d="M158 20h42c27 0 41 14 41 41v58c0 27-14 41-41 41h-42c-27 0-41-14-41-41V61c0-27 14-41 41-41Zm4 28c-11 0-17 6-17 18v48c0 12 6 18 17 18h34c11 0 17-6 17-18V66c0-12-6-18-17-18h-34Z"/><path d="M266 20h51v28h-39c-9 0-13 4-13 12 0 7 4 11 13 13l18 4c21 5 31 18 31 41 0 28-15 42-44 42h-40v-28h42c10 0 15-4 15-13 0-7-4-11-14-13l-18-4c-20-5-30-18-30-41 0-27 14-41 42-41h16Z"/><path d="M337 20h103v29h-39v111h-25V49h-39z"/><path fill-rule="evenodd" d="M451 20h57c30 0 45 15 45 44 0 20-8 33-23 40l29 56h-31l-24-50h-25v50h-28V20Zm28 28v37h26c13 0 20-6 20-18 0-13-7-19-20-19h-26Z"/><path fill-rule="evenodd" d="M606 20h34l44 140h-29l-8-28h-51l-8 28h-28l46-140Zm15 34-17 51h35l-18-51Z"/></g>
+    <text x="70" y="266" fill="#141414" font-size="26" font-weight="560">Коммерческий партнёр для HoReCa</text>
+
+    <rect x="920" y="24" width="656" height="286" fill="#141414"/>
+    <text x="968" y="90" fill="#B9B2A6" font-size="18" font-weight="620" letter-spacing="1.6">ХАРАКТЕР</text>
+    <text x="968" y="166" fill="#F2EFE8" font-size="54" font-weight="860" letter-spacing="-2">ФАКТЫ.</text>
+    <text x="968" y="220" fill="#F2EFE8" font-size="54" font-weight="860" letter-spacing="-2">УСЛОВИЯ.</text>
+    <text x="968" y="274" fill="#F2EFE8" font-size="54" font-weight="860" letter-spacing="-2">ВАША ВЫГОДА.</text>
+
+    <rect x="24" y="326" width="500" height="304" fill="#7A1825"/>
+    <text x="64" y="380" fill="#F2EFE8" font-size="18" font-weight="620" letter-spacing="1">TASTY COFFEE · ПОДТВЕРЖДЕНО</text>
+    <text x="48" y="548" fill="#F2EFE8" font-size="190" font-weight="900" letter-spacing="-14">−35%</text>
+    <text x="64" y="598" fill="#F2EFE8" font-size="30" font-weight="680">через Nostra</text>
+
+    <rect x="540" y="326" width="500" height="304" fill="#FCFBF7"/>
+    <text x="580" y="380" fill="#6F6A62" font-size="18" font-weight="620" letter-spacing="1">CO-BRANDING</text>
+    <text x="580" y="458" fill="#141414" font-size="42" font-weight="780">Бренд партнёра</text>
+    <line x1="580" y1="494" x2="996" y2="494" stroke="#B9B2A6" stroke-width="2"/>
+    <text x="580" y="548" fill="#141414" font-size="26" font-weight="480">доступен через Nostra</text>
+    <text x="580" y="590" fill="#6F6A62" font-size="18">Производитель сохраняет авторство продукта</text>
+
+    <rect x="1056" y="326" width="520" height="304" fill="#F2EFE8"/>
+    <text x="1096" y="380" fill="#141414" font-size="18" font-weight="620" letter-spacing="1">ПАЛИТРА</text>
+    <rect x="1096" y="426" width="92" height="122" fill="#141414"/>
+    <rect x="1204" y="426" width="92" height="122" fill="#7A1825"/>
+    <rect x="1312" y="426" width="92" height="122" fill="#B9B2A6"/>
+    <rect x="1420" y="426" width="92" height="122" fill="#FCFBF7"/>
+    <text x="1096" y="582" fill="#141414" font-size="16">INK</text>
+    <text x="1204" y="582" fill="#141414" font-size="16">OXBLOOD</text>
+    <text x="1312" y="582" fill="#141414" font-size="16">STONE</text>
+    <text x="1420" y="582" fill="#141414" font-size="16">PAPER</text>
+
+    <rect x="24" y="646" width="760" height="330" fill="#F2EFE8"/>
+    <text x="64" y="700" fill="#6F6A62" font-size="18" font-weight="620" letter-spacing="1">СМЫСЛОВАЯ ТЕРРИТОРИЯ</text>
+    <text x="64" y="788" fill="#141414" font-size="64" font-weight="860" letter-spacing="-3">Те же бренды.</text>
+    <text x="64" y="852" fill="#7A1825" font-size="64" font-weight="860" letter-spacing="-3">Лучше условия.</text>
+    <text x="64" y="920" fill="#141414" font-size="24" font-weight="420">Хороший продукт вы уже нашли.</text>
+    <text x="64" y="950" fill="#141414" font-size="24" font-weight="420">Nostra помогает покупать его выгоднее.</text>
+
+    <rect x="800" y="646" width="456" height="330" fill="#FCFBF7"/>
+    <text x="840" y="700" fill="#6F6A62" font-size="18" font-weight="620" letter-spacing="1">ПАРТНЁРСКИЕ ЗОНЫ</text>
+    <text x="840" y="778" fill="#141414" font-size="34" font-weight="760">Tasty Coffee</text>
+    <text x="840" y="810" fill="#6F6A62" font-size="17">официальный логотип</text>
+    <line x1="840" y1="844" x2="1216" y2="844" stroke="#B9B2A6" stroke-width="2"/>
+    <text x="840" y="900" fill="#141414" font-size="34" font-weight="760">Herbarista</text>
+    <text x="840" y="932" fill="#6F6A62" font-size="17">официальный логотип</text>
+
+    <rect x="1272" y="646" width="304" height="330" fill="#141414"/>
+    <rect x="1324" y="698" width="200" height="200" rx="26" fill="#7A1825"/>
+    <g fill="#F2EFE8" transform="translate(1356 728) scale(1.06)">
+      <path d="M0 0h25v140H0zM107 0h25v140h-25zM25 0h25l57 99v41H82L25 41z"/>
+    </g>
+    <text x="1324" y="944" fill="#F2EFE8" font-size="18" font-weight="560">SMALL DIGITAL MARK</text>
+  </g>
+</svg>
