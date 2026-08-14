@@ -3,12 +3,12 @@ import "@fontsource-variable/alumni-sans";
 import "./globals.css";
 
 export const viewport: Viewport = {
-  colorScheme: "light dark",
+  colorScheme: "light",
   themeColor: "#efece4",
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://coffee-nostra-kazan.makhmutov18m.chatgpt.site"),
+  metadataBase: new URL("https://nostrakzn.ru"),
   title: "Nostra — выгодные условия закупки для заведений Казани",
   description:
     "Nostra помогает заведениям Казани покупать знакомые бренды кофе, сиропов и чая на более выгодных коммерческих условиях.",

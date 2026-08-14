@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -68,6 +68,20 @@ const process = [
   { label: "Поставка", title: "Заказывайте нужный объём", text: "Оплачивайте только фактически заказанный товар.", icon: CalendarCheckIcon },
 ];
 
+const coffeeTiers = [
+  { kilos: 10, direct: 10 },
+  { kilos: 25, direct: 20 },
+  { kilos: 50, direct: 30 },
+  { kilos: 350, direct: 35 },
+];
+
+const tickerItems = [
+  "Tasty Coffee — скидка 35%",
+  "Herbarista — от 522 ₽",
+  "Плановая логистика по Казани",
+  "Товар оплачивается по факту",
+];
+
 function NostraLogo({ reversed = false }: { reversed?: boolean }) {
   return (
     // The production wordmark is a compact, path-based SVG.
@@ -94,8 +108,26 @@ function ActionLink({
   return (
     <a className={inverted ? "action-link action-link-inverted" : "action-link"} href={href}>
       <span>{children}</span>
-      <ArrowUpRightIcon size={16} weight="regular" aria-hidden="true" />
+      <span className="action-link-icon" aria-hidden="true">
+        <ArrowUpRightIcon size={16} weight="regular" />
+      </span>
     </a>
+  );
+}
+
+function DealTicker() {
+  const repeatedItems = [...tickerItems, ...tickerItems];
+
+  return (
+    <div className="deal-ticker poster-red" aria-label={tickerItems.join(". ")}>
+      <div className="deal-ticker-track" aria-hidden="true">
+        {repeatedItems.map((item, index) => (
+          <span key={`${item}-${index}`}>
+            {item}<i />
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -181,7 +213,10 @@ function PlansSection() {
               <em>{plan.proof}</em>
               <p>{plan.text}</p>
             </div>
-            <a href="#request">Рассчитать тариф <ArrowUpRightIcon size={15} /></a>
+            <a href="#request">
+              <span>Рассчитать тариф</span>
+              <span className="plan-link-icon" aria-hidden="true"><ArrowUpRightIcon size={15} /></span>
+            </a>
           </article>
         ))}
       </div>
@@ -190,6 +225,11 @@ function PlansSection() {
 }
 
 function CoffeeSection() {
+  const [tierIndex, setTierIndex] = useState(0);
+  const tier = coffeeTiers[tierIndex];
+  const gap = 35 - tier.direct;
+  const directScale = { "--bar-scale": tier.direct / 35 } as CSSProperties;
+
   return (
     <section className="coffee-section" id="coffee" aria-labelledby="coffee-title">
       <div className="coffee-poster poster-red" data-reveal>
@@ -202,14 +242,36 @@ function CoffeeSection() {
         </footer>
       </div>
       <div className="coffee-facts poster-dark" data-reveal>
-        <span className="micro-label micro-label-light">Прямой прайс Tasty Coffee</span>
-        <div className="discount-scale" aria-label="Прямая система скидок Tasty Coffee">
-          <div><span>от 10 кг</span><strong>10%</strong></div>
-          <div><span>от 25 кг</span><strong>20%</strong></div>
-          <div><span>от 50 кг</span><strong>30%</strong></div>
-          <div><span>от 350 кг</span><strong>35%</strong></div>
+        <span className="micro-label micro-label-light">Сравните условия</span>
+        <div className="discount-selector" aria-label="Выберите объём разового заказа">
+          {coffeeTiers.map((item, index) => (
+            <button
+              key={item.kilos}
+              type="button"
+              aria-pressed={index === tierIndex}
+              onClick={() => setTierIndex(index)}
+            >
+              {item.kilos} кг
+            </button>
+          ))}
         </div>
-        <p>При прямом заказе 10 кг — скидка 10% и платная доставка. Через Nostra тот же объём получает скидку уровня 350 кг.</p>
+        <div className="discount-chart" aria-live="polite">
+          <div className="discount-chart-row">
+            <header><span>Напрямую</span><strong>{tier.direct}%</strong></header>
+            <div className="discount-track"><i style={directScale} /></div>
+          </div>
+          <div className="discount-chart-row discount-chart-row-nostra">
+            <header><span>Через Nostra</span><strong>35%</strong></header>
+            <div className="discount-track"><i /></div>
+          </div>
+          <div className="discount-delta">
+            <strong>{gap > 0 ? `+${gap} п.п.` : "тот же уровень"}</strong>
+            <span>{gap > 0 ? "к прямой скидке" : "без закупки 350 кг"}</span>
+          </div>
+        </div>
+        <p>{tier.kilos === 350
+          ? "Та же скидка 35%, но без необходимости замораживать деньги в закупке 350 кг."
+          : `При прямом заказе ${tier.kilos} кг действует скидка ${tier.direct}%. Через Nostra тот же объём получает скидку 35%.`}</p>
         <small>Точная стоимость зависит от выбранного зерна и актуального прайса производителя.</small>
       </div>
     </section>
@@ -319,15 +381,53 @@ export function LandingPage() {
         delay: 0.25,
         ease: "power3.out",
       });
+      gsap.from(".hero-proof-number", {
+        scale: 0.84,
+        transformOrigin: "left center",
+        duration: 1.1,
+        delay: 0.42,
+        ease: "expo.out",
+      });
+      gsap.to(".scroll-progress", {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: { start: "top top", end: "max", scrub: 0.25 },
+      });
+      gsap.to(".deal-ticker-track", {
+        xPercent: -50,
+        duration: 28,
+        repeat: -1,
+        ease: "none",
+      });
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((item) => {
         if (item.closest(".hero")) return;
-        gsap.from(item, {
-          y: 46,
-          opacity: 0,
-          duration: 0.85,
-          ease: "power3.out",
-          scrollTrigger: { trigger: item, start: "top 88%", once: true },
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 90%",
+          once: true,
+          onEnter: () => gsap.fromTo(item, {
+            y: 42,
+            opacity: 0,
+          }, {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            clearProps: "transform,opacity",
+            ease: "power3.out",
+          }),
         });
+      });
+      gsap.from(".voice-principles p", {
+        x: 28,
+        opacity: 0.24,
+        stagger: 0.16,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".voice-section",
+          start: "top 68%",
+          end: "bottom 58%",
+          scrub: 0.8,
+        },
       });
     });
     return () => media.revert();
@@ -335,6 +435,7 @@ export function LandingPage() {
 
   return (
     <main id="top" ref={rootRef}>
+      <div className="scroll-progress" aria-hidden="true" />
       <a className="skip-link" href="#content">К содержанию</a>
       <header className="site-header">
         <a href="#top" aria-label="Nostra — начало страницы"><NostraLogo /></a>
@@ -345,7 +446,10 @@ export function LandingPage() {
           <a href="#prices">Сиропы</a>
           <a href="#delivery">Поставки</a>
         </nav>
-        <a className="header-action" href="#request">Прислать закупочный лист</a>
+        <a className="header-action" href="#request">
+          <span>Прислать закупочный лист</span>
+          <span className="header-action-icon" aria-hidden="true"><ArrowUpRightIcon size={16} /></span>
+        </a>
       </header>
 
       <div id="content">
@@ -355,8 +459,7 @@ export function LandingPage() {
             <h1 id="hero-title" className="hero-display" aria-label="Хороший продукт вы уже нашли. Покупайте его выгоднее.">
               <span>Хороший продукт</span>
               <span>вы уже нашли.</span>
-              <span className="accent">Покупайте его</span>
-              <span className="accent">выгоднее.</span>
+              <span className="accent">Покупайте его выгоднее.</span>
             </h1>
             <div className="hero-copy-bottom">
               <p>Nostra не производит кофе, чай или сиропы. Мы помогаем заведениям покупать уже знакомые бренды на лучших коммерческих условиях.</p>
@@ -370,6 +473,8 @@ export function LandingPage() {
             <footer><span>условия через</span><b>Nostra</b></footer>
           </aside>
         </section>
+
+        <DealTicker />
 
         <VoiceSection />
         <PartnerSection />
