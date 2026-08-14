@@ -373,12 +373,12 @@ export function LandingPage() {
         stagger: 0.07,
         ease: "power4.out",
       });
-      gsap.from(".hero-copy > *, .hero-proof", {
-        y: 28,
+      gsap.from(".hero-copy > .micro-label, .hero-copy-bottom, .hero-proof", {
         opacity: 0,
-        duration: 0.75,
+        duration: 0.65,
         stagger: 0.07,
-        delay: 0.25,
+        delay: 0.12,
+        clearProps: "opacity",
         ease: "power3.out",
       });
       gsap.from(".hero-proof-number", {
