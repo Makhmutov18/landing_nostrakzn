@@ -36,6 +36,9 @@ yarn-error.log*
 .vercel
 
 /dist/
+/.deploy-build/
+/nostra-release.tar.gz
+/.codex-vinext-start.log
 /.wrangler/
 /outputs/
 /work/
