@@ -307,14 +307,19 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 }
 .hero-proof header strong { margin-top: 7px; font-size: 29px; letter-spacing: -.04em; }
 .hero-proof-number {
+  flex: 1;
   margin-top: 0;
-  padding: 38px 22px 20px;
+  min-height: 330px;
+  padding: 48px 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--bone);
   background: var(--oxblood);
   font-family: var(--display);
-  font-size: clamp(7.2rem, 38cqw, 11.25rem);
+  font-size: clamp(8.5rem, 46cqw, 15rem);
   font-weight: 830;
-  letter-spacing: -.045em;
+  letter-spacing: -.065em;
   line-height: .72;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -934,11 +939,20 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   .hero-copy-bottom { margin-top: auto; grid-template-columns: 1fr; gap: 25px; padding-top: 28px; }
   .hero-copy-bottom p { font-size: 14px; }
   .action-link { width: 100%; }
-  .hero-proof { min-height: 540px; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
-  .hero-proof header { grid-column: 1; grid-row: 1; min-height: 110px; }
-  .hero-proof-number { grid-column: 1; grid-row: 2; padding: 45px 18px 20px; font-size: clamp(8.6rem, 45cqw, 12rem); }
-  .hero-proof > p { grid-column: 1; grid-row: 3; }
-  .hero-proof footer { grid-column: 1; grid-row: 4; }
+  .hero-proof { min-height: 0; grid-template-columns: 1fr; grid-template-rows: auto auto auto auto; }
+  .hero-proof header { grid-column: 1; grid-row: 1; min-height: 124px; padding: 28px; }
+  .hero-proof-number {
+    min-height: 280px;
+    grid-column: 1;
+    grid-row: 2;
+    padding: 38px 18px 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(10rem, 53cqw, 15rem);
+    letter-spacing: -.065em;
+  }
+  .hero-proof > p { grid-column: 1; grid-row: 3; padding: 0 28px 28px; font-size: 14px; }
+  .hero-proof footer { grid-column: 1; grid-row: 4; margin-top: 0; min-height: 88px; padding: 22px 28px; }
   .voice-section { min-height: 760px; grid-template-columns: 1fr; gap: 70px; padding: 45px 20px; }
   .voice-main .display-title { font-size: clamp(5.2rem, 23vw, 7.3rem); }
   .voice-main > p { margin-top: 50px; }
