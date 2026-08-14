@@ -385,36 +385,6 @@ export function LandingPage() {
         repeat: -1,
         ease: "none",
       });
-      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((item) => {
-        if (item.closest(".hero")) return;
-        ScrollTrigger.create({
-          trigger: item,
-          start: "top 90%",
-          once: true,
-          onEnter: () => gsap.fromTo(item, {
-            y: 42,
-            opacity: 0,
-          }, {
-            y: 0,
-            opacity: 1,
-            duration: 0.9,
-            clearProps: "transform,opacity",
-            ease: "power3.out",
-          }),
-        });
-      });
-      gsap.from(".voice-principles p", {
-        x: 28,
-        opacity: 0.24,
-        stagger: 0.16,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".voice-section",
-          start: "top 68%",
-          end: "bottom 58%",
-          scrub: 0.8,
-        },
-      });
     });
     return () => media.revert();
   }, { scope: rootRef });
