@@ -510,27 +510,27 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .process-ledger p { margin: 14px 0 0; max-width: 330px; color: var(--muted); font-size: 14px; }
 
 .plans-section { padding: clamp(74px, 8vw, 122px) clamp(30px, 5vw, 78px); }
+.plans-group { margin-top: clamp(56px, 7vw, 96px); }
+.plans-group + .plans-group { margin-top: clamp(40px, 5vw, 64px); }
+.plans-group-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px 40px; margin-bottom: 18px; }
+.plans-group-head h3 { margin: 0; font-size: clamp(22px, 2.4vw, 30px); line-height: 1; letter-spacing: -.035em; }
+.plans-group-head p { max-width: 520px; margin: 0; color: var(--muted); font-size: 14px; }
 .plans-layout {
-  margin-top: clamp(64px, 8vw, 110px);
   display: grid;
-  grid-template-columns: .8fr .8fr 1.35fr;
-  grid-template-rows: repeat(2, minmax(360px, auto));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   background: var(--ink);
   box-shadow: 0 30px 70px rgba(55, 46, 36, .16);
 }
 .plan-panel {
   min-width: 0;
+  min-height: 400px;
   padding: 26px;
   display: flex;
   flex-direction: column;
   background: var(--bone);
 }
-.plan-panel:nth-child(3) { grid-column: 1 / span 2; }
 .plan-panel-featured {
-  grid-column: 3;
-  grid-row: 1 / span 2;
-  padding: 34px;
   color: var(--bone);
   background: var(--oxblood);
 }
@@ -847,6 +847,9 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
 .button-dark:hover .button-icon svg { transform: translate(3px, -3px); }
 .upload-card button:disabled { opacity: .62; cursor: wait; }
 .form-consent, .form-note { margin: 12px 8px 0; color: var(--muted); font-size: 9px; }
+.consent-field { margin: 18px 8px 0; display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 11px; line-height: 1.45; cursor: pointer; }
+.consent-field input { width: 18px; height: 18px; margin: 0; flex: 0 0 auto; accent-color: var(--ink); cursor: pointer; }
+.consent-field a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
 .form-note { min-height: 24px; margin-bottom: 10px; }
 .form-note-error { color: var(--oxblood); }
 .form-note-success { color: #2f6f46; }
@@ -897,6 +900,12 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   border-bottom: 0;
 }
 .site-footer > div p { margin: 18px 0 0; color: rgba(239,236,228,.54); font-size: 11px; }
+.footer-contacts { display: grid; gap: 8px; font-style: normal; font-size: 13px; }
+.footer-contacts a { color: rgba(239,236,228,.82); }
+.footer-contacts a:last-child { margin-top: 6px; color: rgba(239,236,228,.5); font-size: 11px; }
+.footer-contacts a:hover { color: var(--bone); }
+.request-direct { margin-top: 26px; font-size: 14px; }
+.request-direct a { text-decoration: underline; text-underline-offset: 3px; }
 .site-footer nav a { color: rgba(239,236,228,.62); font-size: 10px; }
 .site-footer > a:last-child { justify-self: end; display: inline-flex; gap: 8px; align-items: center; font-size: 11px; }
 
@@ -911,8 +920,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
   .hero-proof footer { grid-column: 1; grid-row: 3; }
   .partner-section, .bar-section, .request-section { grid-template-columns: 1fr; }
   .partner-ledger, .bar-ledger, .request-form { max-width: 900px; }
-  .plans-layout { grid-template-columns: repeat(2, 1fr); grid-template-rows: none; }
-  .plan-panel:nth-child(3), .plan-panel-featured { grid-column: auto; grid-row: auto; }
+  .plans-layout { grid-template-columns: repeat(2, 1fr); }
   .coffee-section { grid-template-columns: 1fr; }
   .coffee-poster, .coffee-facts { min-height: 680px; }
   .operations-section { grid-template-columns: 1fr; }
@@ -971,7 +979,7 @@ main { width: 100%; overflow-x: clip; overflow-y: visible; background: var(--ink
     padding: 24px 0;
     border-left: 0;
   }
-  .plans-layout { grid-template-columns: 1fr; margin-top: 58px; }
+  .plans-layout { grid-template-columns: 1fr; }
   .plan-panel, .plan-panel-featured { min-height: 430px; padding: 24px; }
   .plan-price strong { font-size: 82px; }
   .coffee-poster, .coffee-facts { min-height: 660px; padding: 44px 18px; }
