@@ -18,35 +18,73 @@ import { TeaBagIcon } from "@phosphor-icons/react/dist/ssr/TeaBag";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const plans = [
+type Plan = {
+  id: string;
+  name: string;
+  tag?: string;
+  price: string;
+  limit: string;
+  proof: string;
+  text: string;
+  featured?: boolean;
+};
+
+// Source of truth for numbers: brand/claims.json
+const bundlePlans: Plan[] = [
   {
-    name: "Кофе",
-    price: "7 000",
+    id: "basic-70",
+    name: "Базовый",
+    tag: "Кофе · чай · сиропы",
+    price: "9\u202f900",
+    limit: "до 70 000 ₽ закупок в месяц",
+    proof: "Общий лимит на три категории",
+    text: "Закупочные цены на кофе, чай и сиропы и бесплатная доставка заказов.",
+    featured: true,
+  },
+  {
+    id: "basic-250",
+    name: "Базовый",
+    tag: "Кофе · чай · сиропы",
+    price: "14\u202f900",
+    limit: "до 250 000 ₽ закупок в месяц",
+    proof: "Для заведений с большим оборотом",
+    text: "Те же условия, что в Базовом, с лимитом закупок до 250 000 ₽.",
+  },
+  {
+    id: "extended-250",
+    name: "Расширенный",
+    tag: "Кофе · чай · сиропы",
+    price: "19\u202f900",
+    limit: "свыше 250 000 ₽ закупок в месяц",
+    proof: "Условия обсуждаются индивидуально",
+    text: "Для заведений и сетей с закупкой больше 250 000 ₽ в месяц.",
+  },
+];
+
+const singlePlans: Plan[] = [
+  {
+    id: "coffee",
+    name: "Только кофе",
+    price: "7\u202f000",
     limit: "до 70 000 ₽ закупок в месяц",
     proof: "Tasty Coffee: скидка 35% через Nostra",
-    text: "Условия уровня закупки 350 кг и бесплатная плановая логистика.",
+    text: "Свежая обжарка каждую неделю и бесплатная плановая логистика.",
   },
   {
-    name: "Сиропы",
-    price: "5 000",
-    limit: "до 50 000 ₽ закупок в месяц",
-    proof: "Herbarista: выгода 195–197 ₽ с бутылки",
-    text: "Цена ниже крупного опта без разовой закупки 150 бутылок.",
-  },
-  {
-    name: "Чай",
-    price: "4 000",
+    id: "tea",
+    name: "Только чай",
+    price: "4\u202f000",
     limit: "до 20 000 ₽ закупок в месяц",
-    proof: "Экономию считаем по вашему прайсу",
+    proof: "Закупочные цены на чай",
     text: "Ассортимент и график фиксируем под расход заведения.",
   },
   {
-    name: "Всё вместе",
-    price: "14 990",
-    limit: "до 250 000 ₽ закупок в месяц",
-    proof: "Кофе, чай и сиропы в одном расчёте",
-    text: "Единая подписка на три категории и максимальный лимит.",
-    featured: true,
+    id: "syrups",
+    name: "Только сиропы",
+    price: "5\u202f000",
+    limit: "до 20 000 ₽ закупок в месяц",
+    proof: "Herbarista: выгода 195–197 ₽ с бутылки",
+    text: "Цена ниже крупного опта без разовой закупки 150 бутылок.",
   },
 ];
 
@@ -71,6 +109,7 @@ const process = [
 const tickerItems = [
   "Tasty Coffee — скидка 35%",
   "Herbarista — от 522 ₽",
+  "Кофе, чай и сиропы — от 9 900 ₽ в месяц",
   "Плановая логистика по Казани",
   "Товар оплачивается по факту",
 ];
@@ -184,34 +223,53 @@ function PartnerSection() {
   );
 }
 
+function PlanCard({ plan }: { plan: Plan }) {
+  return (
+    <article className={plan.featured ? "plan-panel plan-panel-featured" : "plan-panel"}>
+      <header>
+        <span>{plan.name}</span>
+        {plan.tag ? <b>{plan.tag}</b> : null}
+      </header>
+      <div className="plan-price"><strong>{plan.price}</strong><span>₽ / мес.</span></div>
+      <small>+ оплата товара по факту заказа</small>
+      <div className="plan-terms">
+        <b>{plan.limit}</b>
+        <em>{plan.proof}</em>
+        <p>{plan.text}</p>
+      </div>
+      <a href="#request">
+        <span>Рассчитать тариф</span>
+        <span className="plan-link-icon" aria-hidden="true"><ArrowUpRightIcon size={15} /></span>
+      </a>
+    </article>
+  );
+}
+
 function PlansSection() {
   return (
     <section className="plans-section poster-stone" id="plans" aria-labelledby="plans-title">
       <header className="section-intro" data-reveal>
         <span className="micro-label">Подписка</span>
         <h2 id="plans-title" className="display-title">Условия под<br />вашу закупку.</h2>
-        <p>Лимит — максимальная сумма закупок по спеццене в месяц, а не обязательный объём.</p>
+        <p>Лимит — максимальная сумма закупок по спеццене в месяц, а не обязательный объём. Подписка оплачивается с 1 по 5 число месяца.</p>
       </header>
-      <div className="plans-layout" data-reveal>
-        {plans.map((plan) => (
-          <article className={plan.featured ? "plan-panel plan-panel-featured" : "plan-panel"} key={plan.name}>
-            <header>
-              <span>{plan.name}</span>
-              {plan.featured ? <b>3 категории</b> : null}
-            </header>
-            <div className="plan-price"><strong>{plan.price}</strong><span>₽ / мес.</span></div>
-            <small>+ оплата товара по факту заказа</small>
-            <div className="plan-terms">
-              <b>{plan.limit}</b>
-              <em>{plan.proof}</em>
-              <p>{plan.text}</p>
-            </div>
-            <a href="#request">
-              <span>Рассчитать тариф</span>
-              <span className="plan-link-icon" aria-hidden="true"><ArrowUpRightIcon size={15} /></span>
-            </a>
-          </article>
-        ))}
+      <div className="plans-group" data-reveal>
+        <div className="plans-group-head">
+          <h3>Пакет: кофе, чай и сиропы</h3>
+          <p>Три отдельные подписки стоят 16 000 ₽ в месяц. В пакете — от 9 900 ₽, лимит общий на все категории.</p>
+        </div>
+        <div className="plans-layout">
+          {bundlePlans.map((plan) => <PlanCard plan={plan} key={plan.id} />)}
+        </div>
+      </div>
+      <div className="plans-group" data-reveal>
+        <div className="plans-group-head">
+          <h3>Одна категория</h3>
+          <p>Если заведению нужен только кофе, только чай или только сиропы.</p>
+        </div>
+        <div className="plans-layout">
+          {singlePlans.map((plan) => <PlanCard plan={plan} key={plan.id} />)}
+        </div>
       </div>
     </section>
   );
@@ -450,6 +508,9 @@ export function LandingPage() {
               <li><CheckIcon size={17} /> Стоимость товара по подписке</li>
               <li><CheckIcon size={17} /> Чистая экономия за месяц</li>
             </ul>
+            <p className="request-direct">
+              Удобнее напрямую? <a href="https://t.me/Emakhmutov1" target="_blank" rel="noopener noreferrer">Telegram @Emakhmutov1</a> · <a href="tel:+79019478742">+7 901 947-87-42</a>
+            </p>
           </div>
           <div className="request-form" data-reveal><UploadForm /></div>
         </section>
@@ -457,12 +518,12 @@ export function LandingPage() {
 
       <footer className="site-footer">
         <div><NostraLogo reversed /><p>Те же бренды. Лучше условия.</p></div>
-        <nav aria-label="Навигация в подвале">
-          <a href="#process">Как работаем</a>
-          <a href="#plans">Тарифы</a>
-          <a href="#coffee">Tasty Coffee</a>
-          <a href="#prices">Herbarista</a>
-        </nav>
+        <address className="footer-contacts" aria-label="Контакты">
+          <a href="tel:+79019478742">+7 901 947-87-42</a>
+          <a href="https://t.me/Emakhmutov1" target="_blank" rel="noopener noreferrer">Telegram @Emakhmutov1</a>
+          <a href="mailto:nostra.kzn@yandex.com">nostra.kzn@yandex.com</a>
+          <a href="/privacy.html">Политика обработки персональных данных</a>
+        </address>
         <a href="#top">Наверх <ArrowUpRightIcon size={14} /></a>
       </footer>
     </main>

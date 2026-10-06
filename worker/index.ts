@@ -93,6 +93,9 @@ async function handleLeadRequest(request: Request, env: Env): Promise<Response> 
   const file = fileValue instanceof File && fileValue.size > 0 ? fileValue : null;
 
   if (!contact) return jsonResponse({ message: "Укажите контакт для ответа." }, 400);
+  if (String(form.get("consent") || "") !== "yes") {
+    return jsonResponse({ message: "Нужно согласие на обработку персональных данных." }, 400);
+  }
   if (!file && !purchaseDetails) {
     return jsonResponse({ message: "Прикрепите файл или опишите примерный объём закупки." }, 400);
   }

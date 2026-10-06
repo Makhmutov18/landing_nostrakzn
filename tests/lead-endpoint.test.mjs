@@ -36,6 +36,7 @@ test("lead endpoint sends the uploaded purchase list directly to Telegram", asyn
   try {
     const form = new FormData();
     form.set("contact", "+7 900 000-00-00");
+    form.set("consent", "yes");
     form.set("purchaseDetails", "10 кг кофе в месяц");
     form.set("file", new File(["sku,qty\ncoffee,10"], "purchase.csv", { type: "text/csv" }));
 
@@ -59,4 +60,19 @@ test("lead endpoint sends the uploaded purchase list directly to Telegram", asyn
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("lead endpoint requires personal data consent", async () => {
+  const form = new FormData();
+  form.set("contact", "+7 900 000-00-00");
+  form.set("purchaseDetails", "10 кг кофе");
+
+  const response = await worker.fetch(
+    new Request("https://coffee.example/api/request", { method: "POST", body: form }),
+    createEnv(),
+    {},
+  );
+
+  assert.equal(response.status, 400);
+  assert.match((await response.json()).message, /согласие/i);
 });

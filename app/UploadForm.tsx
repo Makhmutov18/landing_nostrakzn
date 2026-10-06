@@ -13,6 +13,7 @@ export function UploadForm() {
   const [file, setFile] = useState<File | null>(null);
   const [purchaseDetails, setPurchaseDetails] = useState("");
   const [contact, setContact] = useState("");
+  const [consent, setConsent] = useState(false);
   const [message, setMessage] = useState("");
   const [messageKind, setMessageKind] = useState<MessageKind>("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,10 +41,16 @@ export function UploadForm() {
       return;
     }
 
+    if (!consent) {
+      showMessage("Отметьте согласие на обработку персональных данных.", "error");
+      return;
+    }
+
     const formData = new FormData();
     if (file) formData.append("file", file);
     formData.append("purchaseDetails", purchaseDetails.trim());
     formData.append("contact", contact.trim());
+    formData.append("consent", "yes");
     formData.append("website", "");
 
     setIsSubmitting(true);
@@ -63,6 +70,7 @@ export function UploadForm() {
       setFile(null);
       setPurchaseDetails("");
       setContact("");
+      setConsent(false);
       if (inputRef.current) inputRef.current.value = "";
       showMessage("Заявка отправлена. B2B‑менеджер свяжется с вами после расчёта.", "success");
       successDialogRef.current?.showModal();
@@ -137,11 +145,26 @@ export function UploadForm() {
           <span>Ваш сайт</span>
           <input name="website" type="text" tabIndex={-1} autoComplete="off" />
         </label>
+        <label className="consent-field">
+          <input
+            type="checkbox"
+            checked={consent}
+            disabled={isSubmitting}
+            required
+            onChange={(event) => {
+              setConsent(event.target.checked);
+              showMessage("", "idle");
+            }}
+          />
+          <span>
+            Я даю согласие на обработку персональных данных в соответствии с{" "}
+            <a href="/privacy.html" target="_blank" rel="noopener noreferrer">политикой обработки персональных данных</a>.
+          </span>
+        </label>
         <button className="button button-dark" type="submit" disabled={isSubmitting}>
           <span>{isSubmitting ? "Отправляем…" : "Прислать закупочный лист"}</span>
           <span className="button-icon" aria-hidden="true"><ArrowUpRightIcon size={17} weight="regular" /></span>
         </button>
-        <p className="form-consent">Нажимая кнопку, вы соглашаетесь на обработку данных для подготовки расчёта.</p>
         <p className={`form-note form-note-${messageKind}`} aria-live="polite">
           {message || "Заявка и файл будут отправлены напрямую B2B‑менеджеру."}
         </p>

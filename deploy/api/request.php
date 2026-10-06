@@ -78,6 +78,9 @@ $file = $_FILES['file'] ?? null;
 $hasFile = is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
 
 if ($contact === '') respond(['message' => 'Укажите контакт для ответа.'], 400);
+if (($_POST['consent'] ?? '') !== 'yes') {
+    respond(['message' => 'Нужно согласие на обработку персональных данных.'], 400);
+}
 if (!$hasFile && $purchaseDetails === '') {
     respond(['message' => 'Прикрепите файл или опишите примерный объём закупки.'], 400);
 }
