@@ -111,9 +111,9 @@
         "syrups"
       ],
       "subscription_rub_per_month": 19900,
-      "special_price_purchase_limit_rub_per_month": 250000,
-      "limit_scope": "total across categories",
-      "includes": "TBD — confirm with owner before publishing details"
+      "special_price_purchase_from_rub_per_month": 250000,
+      "limit_scope": "purchases above 250 000 ₽ per month",
+      "includes": "same as Базовый; terms discussed individually"
     }
   ],
   "separate_subscriptions_total_rub_per_month": 16000,
